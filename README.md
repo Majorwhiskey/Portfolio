@@ -1,5 +1,7 @@
 # Portfolio
 
+**Live at [amoghukkadgatri.vercel.app](https://amoghukkadgatri.vercel.app)**
+
 Personal portfolio site for **Amogh Ukkadgatri** — Electronics & Communication Engineer.
 
 A single-page, static site built as a Claude Design canvas (`.dc.html`) with a
@@ -33,7 +35,9 @@ python3 -m http.server 8000
 
 ## Deploying
 
-The site is published with GitHub Pages from the `docs/` folder on `main`.
+The site is hosted on Vercel and deploys automatically on every push to `main`.
+`vercel.json` sets `outputDirectory` to `docs/` with no build step. To deploy
+manually: `vercel --prod`.
 
 `docs/` is self-contained — `index.html` carries its own copy of `support.js`,
 `_ds/`, and `assets/`, and uses only relative paths — so it can also be dropped
