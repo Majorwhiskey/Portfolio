@@ -33,8 +33,7 @@ python3 -m http.server 8000
 
 ## Deploying
 
-The site is published with GitHub Pages from the `docs/` folder on `main`, and
-served at **https://amoghukkadgatri.com** (`docs/CNAME`).
+The site is published with GitHub Pages from the `docs/` folder on `main`.
 
 `docs/` is self-contained — `index.html` carries its own copy of `support.js`,
 `_ds/`, and `assets/`, and uses only relative paths — so it can also be dropped
