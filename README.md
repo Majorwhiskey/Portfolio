@@ -19,7 +19,7 @@ support.js          Generated dc-runtime (do not edit by hand)
 _ds/                Design-system bundles (classical, organic) — styles + tokens
 assets/             Scene image and resume PDF
 uploads/            Source images and component drafts
-deploy/             Built static output (index.html + assets) ready to host
+docs/              Built static output (index.html + assets) ready to host
 ```
 
 ## Running locally
@@ -33,6 +33,9 @@ python3 -m http.server 8000
 
 ## Deploying
 
-Serve the contents of `deploy/` from any static host (GitHub Pages, Netlify,
-Vercel). `deploy/index.html` is the built entry point and carries its own copy
-of `support.js`, `_ds/`, and `assets/`.
+The site is published with GitHub Pages from the `docs/` folder on `main`, and
+served at **https://amoghukkadgatri.com** (`docs/CNAME`).
+
+`docs/` is self-contained — `index.html` carries its own copy of `support.js`,
+`_ds/`, and `assets/`, and uses only relative paths — so it can also be dropped
+onto Netlify, Vercel, or Cloudflare Pages with no build step.
