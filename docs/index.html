@@ -36,6 +36,32 @@
   }
 </style>
 <style>
+  /* Mobile dot menu. Hidden on desktop, where the inline nav is used instead. */
+  .menu { display: none; position: relative; }
+  .menu-btn {
+    list-style: none; cursor: pointer; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 3px;
+    width: 34px; height: 34px; border: 1px solid var(--color-divider);
+    border-radius: var(--radius-sm); transition: border-color 200ms ease;
+  }
+  .menu-btn::-webkit-details-marker { display: none; }
+  .menu-btn::marker { content: ""; }
+  .menu-btn span { width: 3px; height: 3px; border-radius: 50%; background: var(--color-neutral-700); }
+  .menu[open] .menu-btn { border-color: var(--color-accent); }
+  .menu[open] .menu-btn span { background: var(--color-accent-700); }
+  .menu-panel {
+    position: absolute; right: 0; top: calc(100% + 11px); z-index: 30;
+    min-width: 196px; display: flex; flex-direction: column; padding: 6px;
+    background: var(--color-bg); border: 1px solid var(--color-divider);
+    border-radius: var(--radius-md);
+    box-shadow: 0 14px 34px color-mix(in srgb, var(--color-text) 14%, transparent);
+  }
+  .menu-link {
+    padding: 10px 12px; border-radius: var(--radius-sm); font-size: 11px;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-neutral-700);
+  }
+  .menu-link:hover { background: color-mix(in srgb, var(--color-accent) 9%, transparent); color: var(--color-accent-700); }
+
   /* Mobile layout. Rules use !important because the design canvas emits
      inline styles, which otherwise win over any stylesheet rule. */
   @media (max-width: 900px) {
@@ -46,6 +72,8 @@
     .prose-cols { column-count: 1 !important; text-align: left !important; }
     .row-170, .row-170-3 { grid-template-columns: minmax(0, 1fr) !important; gap: var(--space-2) !important; }
     .proj-panel { position: static !important; }
+    .nav-desktop, .hdr-divider { display: none !important; }
+    .menu { display: block; }
   }
   @media (max-width: 620px) {
     .wrap { padding-left: 16px !important; padding-right: 16px !important; }
@@ -70,8 +98,8 @@
   <header style="position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--color-bg) 72%, transparent); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%); border-bottom: 1px solid var(--color-divider); box-shadow: inset 0 1px 0 color-mix(in srgb, var(--color-neutral-100) 70%, transparent);">
     <div class="wrap hdr" style="max-width: 1180px; margin: 0 auto; padding: 12px 32px; display: flex; align-items: center; gap: var(--space-6); animation: condense linear both; animation-timeline: scroll(root); animation-range: 0 200px;">
       <a href="#top" style="font-family: var(--font-heading); font-size: 19px; font-weight: 600; letter-spacing: 0.1em; color: var(--color-text); white-space: nowrap;">A. UKKADGATRI</a>
-      <div style="width: 1px; height: 20px; background: var(--color-divider);"></div>
-      <nav style="display: flex; gap: var(--space-4); flex-wrap: wrap; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;">
+      <div class="hdr-divider" style="width: 1px; height: 20px; background: var(--color-divider);"></div>
+      <nav class="nav-desktop" style="display: flex; gap: var(--space-4); flex-wrap: wrap; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;">
         <sc-for list="{{ navLinks }}" as="l" hint-placeholder-count="7">
           <a href="{{ l.href }}" style="color: var(--color-neutral-700); padding-bottom: 3px; transition: color 220ms ease, box-shadow 260ms ease; box-shadow: inset 0 -1px 0 {{ l.mark }};" style-hover="color: var(--color-accent-700); box-shadow: inset 0 -1px 0 var(--color-accent);"><x-import component="ScrambleText" from="./ScrambleText.jsx" text="{{ l.label }}" trigger="view" speed="22" style="display: inline;" hint-size="auto,1em">{{ l.label }}</x-import></a>
         </sc-for>
@@ -83,6 +111,14 @@
           <span>IST {{ clock }}</span>
         </div>
       </sc-if>
+      <details class="menu">
+        <summary class="menu-btn" aria-label="Open menu" role="button"><span></span><span></span><span></span></summary>
+        <div class="menu-panel">
+          <sc-for list="{{ navLinks }}" as="l" hint-placeholder-count="7">
+            <a class="menu-link" href="{{ l.href }}">{{ l.label }}</a>
+          </sc-for>
+        </div>
+      </details>
     </div>
   </header>
 
@@ -586,6 +622,15 @@ class Component extends DCLogic {
   }
 }
 
+</script>
+<script>
+  document.addEventListener('click', function (e) {
+    var open = document.querySelector('details.menu[open]');
+    if (!open) return;
+    if (e.target.closest('.menu-panel a') || !e.target.closest('details.menu')) {
+      open.removeAttribute('open');
+    }
+  });
 </script>
 </body>
 </html>
