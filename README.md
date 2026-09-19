@@ -4,25 +4,28 @@
 
 Personal portfolio site for **Amogh Ukkadgatri** — Electronics & Communication Engineer.
 
-A single-page static site with a radar/telemetry-inspired classical theme: animated scan sweep, drifting grid
-overlay, scroll-driven progress bar, and scramble-in text.
+A single-page static site, drawn in code with no framework or build step: a self-routing circuit canvas in the
+hero, a dot-field interference canvas that spells words as you scroll, scroll-velocity type lean and row lag,
+a pinned project index, word-by-word statement reveal, marquees, and live masthead telemetry fed by the scroll wheel.
 
 ## Sections
 
-`#top` · `#about` · `#education` · `#experience` · `#projects` · `#skills` · `#notes` · `#contact`
+`#top` · `#about` · `#log` (experience) · `#projects` · `#skills` · `#education` · `#notes` · `#contact`
 
 ## Layout
 
 ```
 docs/               The site — this is the source you edit
-  index.html        Markup, styles, and page data
-  ScrambleText.jsx  React component: character-scramble text reveal
-  support.js        Generated dc-runtime (do not edit by hand)
-  _ds/              Design-system bundle — styles + tokens
-  assets/           Scene image and resume PDF
+  index.html        Everything: styles, CONTENT data, markup template, and motion code
+  assets/           Resume PDF
 uploads/            Original images and component drafts (not published)
 vercel.json         Vercel config — publishes docs/ with no build step
 ```
+
+## Editing content
+
+All copy (roles, projects, skills, education, notes, contact links) lives in the `CONTENT` object near the top
+of the `<script>` in `docs/index.html`. The markup is generated from it, so edits there are all you need.
 
 ## Running locally
 

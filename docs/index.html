@@ -1,636 +1,1284 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js"></script>
-</head>
-<body>
-<x-dc>
-<helmet>
+<title>Amogh P Ukkadgatri &mdash; Radar and sensing systems</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap">
-<link rel="stylesheet" href="_ds/classical-9e704fd5-39eb-45fe-b9db-f9ea0a7d75bb/styles.css">
-<script src="_ds/classical-9e704fd5-39eb-45fe-b9db-f9ea0a7d75bb/_ds_bundle.js"></script>
-<title>Amogh Ukkadgatri — Electronics & Communication Engineer</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap">
 <style>
-  html { scroll-behavior: smooth; }
-  body { margin: 0; background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); }
-  a { color: var(--color-accent-700); text-decoration: none; }
-  a:hover { color: var(--color-accent-600); }
-  ::selection { background: var(--color-accent-200); }
-  :focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
-  @keyframes sweep { 0% { transform: translateY(-30vh); } 100% { transform: translateY(130vh); } }
-  @keyframes blip { 0%, 100% { opacity: 0.25; } 50% { opacity: 1; } }
-  @keyframes revealUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
-  @keyframes drawRule { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-  @keyframes growBar { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-  @keyframes settleIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
-  @keyframes settleAlt { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
-  @keyframes popTick { from { opacity: 0; transform: scaleX(0.2); } to { opacity: 1; transform: none; } }
-  @keyframes driftGrid { from { transform: translateY(0); } to { transform: translateY(-64px); } }
-  @keyframes condense { from { padding-top: 12px; padding-bottom: 12px; } to { padding-top: 7px; padding-bottom: 7px; } }
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { animation-duration: 1ms !important; animation-iteration-count: 1 !important; transition-duration: 1ms !important; }
+  :root {
+    --accent: #B04524;
+    --paper: #F2F0EA;
+    --paper-2: #EDEAE2;
+    --ink: #191817;
+    --muted: #6B6E6A;
+    --rule: rgba(25, 24, 23, 0.16);
+    --mast: 118px;             /* sticky masthead height; sticky elements sit under it */
+    --side-cols: minmax(0, 200px) minmax(0, 1fr);
   }
-</style>
-<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  [id] { scroll-margin-top: var(--mast); }
+  ::selection { background: rgba(176, 69, 36, 0.18); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--ink); }
+  a:hover { color: var(--accent); }
+  .ghost { color: transparent; -webkit-text-stroke: 1px var(--muted); }
+  input:focus, textarea:focus { outline: none; border-bottom-color: var(--accent); }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .rv { opacity: 1 !important; transform: none !important; }
+  }
+
   /* Mobile dot menu. Hidden on desktop, where the inline nav is used instead. */
   .menu { display: none; position: relative; }
   .menu-btn {
     list-style: none; cursor: pointer; display: flex; flex-direction: column;
     align-items: center; justify-content: center; gap: 3px;
-    width: 34px; height: 34px; border: 1px solid var(--color-divider);
-    border-radius: var(--radius-sm); transition: border-color 200ms ease;
+    width: 40px; height: 40px; border: 1px solid var(--rule); border-radius: 999px;
   }
   .menu-btn::-webkit-details-marker { display: none; }
   .menu-btn::marker { content: ""; }
-  .menu-btn span { width: 3px; height: 3px; border-radius: 50%; background: var(--color-neutral-700); }
-  .menu[open] .menu-btn { border-color: var(--color-accent); }
-  .menu[open] .menu-btn span { background: var(--color-accent-700); }
+  .menu-btn span { width: 3px; height: 3px; border-radius: 50%; background: var(--ink); }
+  .menu[open] .menu-btn { border-color: var(--accent); }
+  .menu[open] .menu-btn span { background: var(--accent); }
   .menu-panel {
-    position: absolute; right: 0; top: calc(100% + 11px); z-index: 30;
-    min-width: 196px; display: flex; flex-direction: column; padding: 6px;
-    background: var(--color-bg); border: 1px solid var(--color-divider);
-    border-radius: var(--radius-md);
-    box-shadow: 0 14px 34px color-mix(in srgb, var(--color-text) 14%, transparent);
+    position: absolute; right: 0; top: calc(100% + 9px); z-index: 70;
+    min-width: 200px; display: flex; flex-direction: column; padding: 6px;
+    background: var(--paper); border: 1px solid var(--rule); border-radius: 10px;
+    box-shadow: 0 14px 34px rgba(25, 24, 23, 0.14);
   }
   .menu-link {
-    padding: 10px 12px; border-radius: var(--radius-sm); font-size: 11px;
-    letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-neutral-700);
+    padding: 12px; border-radius: 6px; text-decoration: none;
+    font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
   }
-  .menu-link:hover { background: color-mix(in srgb, var(--color-accent) 9%, transparent); color: var(--color-accent-700); }
+  .menu-link:hover { background: rgba(176, 69, 36, 0.08); }
 
-  /* Mobile layout. Rules use !important because the design canvas emits
-     inline styles, which otherwise win over any stylesheet rule. */
+  /* Mobile layout. Rules use !important because the markup carries inline styles. */
   @media (max-width: 900px) {
-    .wrap { padding-left: 20px !important; padding-right: 20px !important; }
-    .hero, .two-col, .proj, .notes-grid { grid-template-columns: minmax(0, 1fr) !important; }
-    .hero { padding-top: 56px !important; gap: 34px !important; align-items: start !important; }
-    .two-col, .proj, .notes-grid { gap: 34px !important; }
-    .prose-cols { column-count: 1 !important; text-align: left !important; }
-    .row-170, .row-170-3 { grid-template-columns: minmax(0, 1fr) !important; gap: var(--space-2) !important; }
-    .proj-panel { position: static !important; }
-    .nav-desktop, .hdr-divider { display: none !important; }
+    :root { --side-cols: minmax(0, 1fr); }
+    .side-label { position: static !important; }
+    .proj-grid { grid-template-columns: minmax(0, 1fr) !important; }
+    .proj-pin { display: none !important; }
+    .proj { min-height: 0 !important; padding: 40px 0 !important; }
+    .skills-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+    .facts { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+    .nav-desktop > a { display: none !important; }
     .menu { display: block; }
   }
   @media (max-width: 620px) {
-    .wrap { padding-left: 16px !important; padding-right: 16px !important; }
-    .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
-    .metrics > div:nth-child(2n) { border-right: 0 !important; }
-    .metrics > div:nth-child(n + 3) { border-top: 1px solid var(--color-divider) !important; }
+    :root { --mast: 59px; }
     .telemetry { display: none !important; }
-    .hdr { gap: var(--space-3) !important; }
-    .hero { padding-top: 44px !important; }
+    .cols-2, .skills-grid { grid-template-columns: minmax(0, 1fr) !important; }
+    .row3 { grid-template-columns: minmax(0, 1fr) !important; gap: 8px !important; }
+    .row3 > span:last-child { text-align: left !important; }
+    .clock-wrap { display: none !important; }
   }
 </style>
-</helmet>
+</head>
+<body>
+<main id="app"></main>
 
-<div style="position: relative; min-height: 100vh; overflow: clip; font-family: var(--font-body); color: var(--color-text); background: var(--color-bg);">
+<script>
+/* =========================================================================
+   1. CONTENT  --  the only part you need to edit.
+      Everything in [BRACKETS] is a placeholder waiting on real copy.
+   ========================================================================= */
+var LEVEL = function (n) { return (n * 20) + '%'; };
+var CONTENT = {
+  roles: [
+    {
+      dates: 'Sep 2025 — Present', org: 'SSS Defence',
+      title: 'R&D Intern — DeepTech R&D · Radar, Sensing & C-UAS', place: 'Bengaluru · On-site',
+      bullets: [
+        'Radar sensing for counter-UAS: developing a compact, high-frequency radar sensor that acquires and tracks small aerial targets.',
+        'Own the sensor end to end — requirements and trade studies, detection and link-budget analysis, and antenna design backed by EM simulation.',
+        'Carry the design into hardware: RF and mixed-signal PCB design, digital back-end sizing, power architecture and system safety.',
+        'Systems engineering across disciplines — reconciling neighbouring teams’ hand-offs against what the sensor can physically do, and closing the gaps that turn up.',
+        'Recruited into an acoustic counter-UAS programme on the strength of a final-year sound source localization project; joined the hardware team and contributed across core signal-acquisition domains.',
+        'Part of the R&D team on the microphone arrays for the first C-UAS prototype on Raspberry Pi 4, working across multiple communication protocols.',
+        'Adapted a triangulation-based localization approach to support the team’s advanced and classical physics-based algorithms, improving the C-UAS localization pipeline.',
+        'Owned the full electronics build for the second prototype: soldering, ESP32 firmware, flashing and data extraction on an independent module.',
+        'Built a complete test rig single-handedly to validate custom mic arrays using ESP32 I2S for PDM capture; solved the classic ESP32’s single-RX-channel limit with TDM to read multiple PDM mics.',
+        'Applied networking fundamentals across prototypes: DHCP, static IP assignment and subnet masking.',
+        'Entered the radar side through a low-power X-band programme, building working knowledge of the radar physics, electronics and full system operation.'
+      ]
+    }
+  ],
+  leadership: [
+    { label: 'Chair, KLEIT–IEEE MTT-S Chapter (2024–25)' },
+    { label: 'Vice-Chair, KLEIT–IEEE Student Branch (2023–24)' },
+    { label: 'Coordinator, Technical & Cultural Fest' },
+    { label: 'Class Representative · University Theatre Group' }
+  ],
+  projects: [
+    {
+      num: '01', title: '3D Sound Source Localization using Mic Array',
+      dates: 'Sep 2025 — Mar 2026', domain: 'Acoustic sensing',
+      desc: 'A real-time audio sensing system that detects and localizes sound sources in three dimensions using a microphone array and classical estimation methods. Built around time-difference-of-arrival across the array, with a triangulation stage that resolves azimuth and elevation. This is the project that put me on the counter-UAS team.',
+      tags: ['Mic array', 'TDOA', 'Python', 'MATLAB', 'Raspberry Pi']
+    },
+    {
+      num: '02', title: 'Real-time 3D Radar Tracking & Classification',
+      dates: 'Sep 2024 — Nov 2024', domain: 'Radar',
+      desc: 'A radar system that tracks objects in three dimensions in real time and classifies them by their distinct return signatures. Covered the chain from raw returns through detection and track association to a signature-based classifier.',
+      tags: ['Radar', 'DSP', 'Python', 'Tracking']
+    },
+    {
+      num: '03', title: 'ESP32 TDM Test Rig for Custom PDM Arrays',
+      dates: '2026', domain: 'Embedded / validation',
+      desc: 'Built single-handedly to validate custom microphone arrays. The classic ESP32 exposes a single I2S receive channel, which caps you at one PDM microphone; moving capture to TDM let the rig read several mics at once and made array validation possible without external hardware.',
+      tags: ['ESP32', 'I2S / PDM', 'TDM', 'C', 'Firmware']
+    },
+    {
+      num: '04', title: 'Automatic Rain Detection System',
+      dates: 'Mar 2024 — May 2024', domain: 'Embedded',
+      desc: 'A smart rain-detection module built from discrete embedded components, driving an automation output on detection. A compact exercise in sensor conditioning and threshold reliability in a noisy environment.',
+      tags: ['Sensors', 'Op-amps', '8051', 'Arduino']
+    },
+    {
+      num: '05', title: 'Smart Alcohol Detection & Engine Immobilization',
+      dates: 'Jan 2023 — Mar 2023', domain: 'Embedded / safety',
+      desc: 'A breath-alcohol sensor tied into a vehicle ignition lock: on detection above threshold, the system immobilizes the engine. Required a fail-safe interlock design — the failure mode had to be “engine off”, never “engine on”.',
+      tags: ['MQ-3 sensor', 'Relay interlock', 'Microcontroller', 'C']
+    },
+    {
+      num: '06', title: 'Battery Level Indicator & Centroid Finder',
+      dates: '2023 — 2024', domain: 'Analog / tooling',
+      desc: 'Two smaller builds: an analog voltage-divider battery monitor with comparator-driven level indication, and a Python utility that computes centroid location from coordinate inputs — the latter written as a helper for array geometry work.',
+      tags: ['Analog', 'Comparators', 'MOSFETs', 'Python']
+    }
+  ].map(function (p) {
+    p.tags = p.tags.map(function (t) { return { label: t }; });
+    return p;
+  }),
+  // level: 1 Exposure · 2 Working · 3 Proficient · 4 Strong · 5 Deep
+  groups: [
+    { name: 'RF & microwave', items: [
+      ['Radar sensor design', 4], ['Antenna array design', 4], ['Feed-network design', 4],
+      ['Full-wave EM simulation', 4], ['Link-budget & detection analysis', 4], ['Radar physics', 4] ] },
+    { name: 'Systems engineering', items: [
+      ['Requirements & trade studies', 4], ['Cross-team interface closure', 4],
+      ['Test-rig & validation design', 4], ['System safety & interlocks', 3],
+      ['Networking bring-up · DHCP / subnets', 3] ] },
+    { name: 'Hardware', items: [
+      ['Multi-board RF & mixed-signal PCB', 4], ['Power architecture', 3], ['ESP32', 5],
+      ['Raspberry Pi', 4], ['Soldering & firmware flashing', 5], ['Op-amps · MOSFETs · sensors', 4] ] },
+    { name: 'Digital & signals', items: [
+      ['FPGA back-end sizing', 3], ['Verilog / HDL', 2], ['Digital signal processing', 3],
+      ['Source localization', 4], ['I2S / PDM / TDM acquisition', 4] ] },
+    { name: 'Languages & tools', items: [
+      ['C', 4], ['Python', 4], ['MATLAB', 3], ['Linux', 3], ['Audacity', 3] ] }
+  ].map(function (g) {
+    var TIERS = ['', 'Exposure', 'Working', 'Proficient', 'Strong', 'Deep'];
+    return { name: g.name, items: g.items.map(function (it) {
+      return { label: it[0], tier: LEVEL(it[1]), tierName: TIERS[it[1]] };
+    }) };
+  }),
+  education: [
+    { dates: '2022 — 2026', degree: 'B.E., Electronics & Communication', school: 'KLE Institute of Technology, Hubballi', mark: '8.84 CGPA' },
+    { dates: '2022', degree: 'Senior Secondary (XII), Science', school: 'Chetan PU College · Karnataka State Board', mark: '81.0%' },
+    { dates: '2020', degree: 'Secondary (X)', school: 'Oriental Public School · State Board', mark: '96.2%' }
+  ],
+  notes: [
+    { num: '01 · Embedded', top: 'calc(var(--mast) + 32px)', title: 'Reading four PDM mics off one ESP32', blurb: 'Why the single I2S RX channel is the real constraint, and how TDM gets you past it.', state: 'Draft' },
+    { num: '02 · Signals', top: 'calc(var(--mast) + 48px)', title: 'TDOA by hand before you trust the library', blurb: 'Working a three-mic bearing estimate on paper, then checking the code against it.', state: 'Still a draft' },
+    { num: '03 · Radar', top: 'calc(var(--mast) + 64px)', title: 'What low-power X-band actually costs you', blurb: 'First-principles notes on range, budget and the trades a small radar forces.', state: 'Draft, ambitiously' }
+  ],
+  links: [
+    { k: 'Email', v: 'Amoghukkadgatri@gmail.com', href: 'mailto:Amoghukkadgatri@gmail.com' },
+    { k: 'Phone', v: '+91 76760 83752', href: 'tel:+917676083752' },
+    { k: 'LinkedIn', v: 'linkedin.com/in/amoghukkadgatri', href: 'https://www.linkedin.com/in/amoghukkadgatri' },
+    { k: 'GitHub', v: 'github.com/amoghukkadgatri', href: 'https://github.com/amoghukkadgatri' },
+    { k: 'Résumé', v: 'Amogh_Ukkadgatri_Resume.pdf', href: 'assets/Amogh_Ukkadgatri_Resume.pdf' }
+  ]
+};
 
-  <div aria-hidden="true" style="{{ sceneStyle }}"></div>
-  <div aria-hidden="true" style="position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 40; transform-origin: left center; background: var(--color-accent); animation: growBar linear both; animation-timeline: scroll(root);"></div>
-  <div aria-hidden="true" style="position: fixed; inset: 0; pointer-events: none; z-index: 0; background-image: linear-gradient(to right, color-mix(in srgb, var(--color-text) 5.5%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in srgb, var(--color-text) 5.5%, transparent) 1px, transparent 1px); background-size: 92px 92px; mask-image: radial-gradient(ellipse 90% 70% at 50% 30%, #000 40%, transparent 100%); animation: driftGrid linear both; animation-timeline: scroll(root);"></div>
-  <div aria-hidden="true" style="position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: 0.5; background-image: repeating-linear-gradient(to bottom, color-mix(in srgb, var(--color-text) 3.5%, transparent) 0px, color-mix(in srgb, var(--color-text) 3.5%, transparent) 1px, transparent 1px, transparent 4px);"></div>
-  <div aria-hidden="true" style="position: fixed; left: 0; right: 0; top: 0; height: 26vh; pointer-events: none; z-index: 0; background: linear-gradient(to bottom, transparent, color-mix(in srgb, var(--color-accent) 7%, transparent), transparent); animation: sweep 11s linear infinite;"></div>
+/* =========================================================================
+   2. MARKUP  --  generated from CONTENT.
+      Porting to Vue: each `.map(...)` below is a `v-for`, and each
+      `${...}` is an interpolation. The inline styles can stay or move
+      to classes; nothing in the motion code depends on them except the
+      class hooks (.rv .scr .skew .lag .wd .proj .tier .mq etc).
+   ========================================================================= */
+function template(C) {
+  var roles = C.roles, leadership = C.leadership, projects = C.projects;
+  var groups = C.groups, education = C.education, notes = C.notes, links = C.links;
+  return `
 
-  <header style="position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--color-bg) 72%, transparent); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%); border-bottom: 1px solid var(--color-divider); box-shadow: inset 0 1px 0 color-mix(in srgb, var(--color-neutral-100) 70%, transparent);">
-    <div class="wrap hdr" style="max-width: 1180px; margin: 0 auto; padding: 12px 32px; display: flex; align-items: center; gap: var(--space-6); animation: condense linear both; animation-timeline: scroll(root); animation-range: 0 200px;">
-      <a href="#top" style="font-family: var(--font-heading); font-size: 19px; font-weight: 600; letter-spacing: 0.1em; color: var(--color-text); white-space: nowrap;">A. UKKADGATRI</a>
-      <div class="hdr-divider" style="width: 1px; height: 20px; background: var(--color-divider);"></div>
-      <nav class="nav-desktop" style="display: flex; gap: var(--space-4); flex-wrap: wrap; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;">
-        <sc-for list="{{ navLinks }}" as="l" hint-placeholder-count="7">
-          <a href="{{ l.href }}" style="color: var(--color-neutral-700); padding-bottom: 3px; transition: color 220ms ease, box-shadow 260ms ease; box-shadow: inset 0 -1px 0 {{ l.mark }};" style-hover="color: var(--color-accent-700); box-shadow: inset 0 -1px 0 var(--color-accent);"><x-import component="ScrambleText" from="./ScrambleText.jsx" text="{{ l.label }}" trigger="view" speed="22" style="display: inline;" hint-size="auto,1em">{{ l.label }}</x-import></a>
-        </sc-for>
-      </nav>
-      <div style="flex: 1;"></div>
-      <sc-if value="{{ telemetry }}" hint-placeholder-val="{{ true }}">
-        <div class="telemetry" style="display: flex; align-items: center; gap: var(--space-3); font-size: 10.5px; letter-spacing: 0.12em; color: var(--color-neutral-600); font-variant-numeric: tabular-nums; white-space: nowrap;">
-          <span style="display: inline-flex; align-items: center; gap: 6px;"><span style="width: 6px; height: 6px; border-radius: 50%; background: var(--color-accent); animation: blip 2.4s ease-in-out infinite;"></span>ONLINE</span>
-          <span>IST {{ clock }}</span>
-        </div>
-      </sc-if>
-      <details class="menu">
-        <summary class="menu-btn" aria-label="Open menu" role="button"><span></span><span></span><span></span></summary>
-        <div class="menu-panel">
-          <sc-for list="{{ navLinks }}" as="l" hint-placeholder-count="7">
-            <a class="menu-link" href="{{ l.href }}">{{ l.label }}</a>
-          </sc-for>
-        </div>
-      </details>
+
+<div class="page" style="position: relative; width: 100%;">
+
+  <!-- ============ MASTHEAD ============ -->
+  <div style="position: sticky; top: 0; z-index: 60; background: rgba(242,240,234,0.92); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(25,24,23,0.16);">
+    <div style="height: 58px; box-sizing: border-box; padding: 0 clamp(20px, 5vw, 80px); display: flex; align-items: center; justify-content: space-between; gap: 20px;">
+      <a href="#top" style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; white-space: nowrap;">A. P. Ukkadgatri</a>
+      <div class="nav-desktop" style="display: flex; align-items: center; gap: clamp(12px, 2vw, 26px);">
+        <a href="#about" style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none;">About</a>
+        <a href="#projects" style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none;">Work</a>
+        <a href="#notes" style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none;">Notes</a>
+        <a href="#contact" style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none;">Contact</a>
+        <span class="clock-wrap" style="display: flex; align-items: center; gap: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: #6B6E6A;">
+          <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--accent);"></span>
+          <span class="clock" style="min-width: 108px; text-align: right;">IST --:--:--</span>
+        </span>
+        <details class="menu">
+          <summary class="menu-btn" aria-label="Open menu"><span></span><span></span><span></span></summary>
+          <nav class="menu-panel">
+            <a class="menu-link" href="#about">About</a>
+            <a class="menu-link" href="#log">Experience</a>
+            <a class="menu-link" href="#projects">Work</a>
+            <a class="menu-link" href="#skills">Skills</a>
+            <a class="menu-link" href="#education">Education</a>
+            <a class="menu-link" href="#notes">Notes</a>
+            <a class="menu-link" href="#contact">Contact</a>
+          </nav>
+        </details>
+      </div>
     </div>
-  </header>
+    <div style="height: 1px; width: 100%; background: rgba(25,24,23,0.10);">
+      <div class="prog" style="height: 1px; width: 0%; background: var(--accent);"></div>
+    </div>
+    <div class="telemetry" style="box-sizing: border-box; padding: 9px clamp(20px, 5vw, 80px); display: flex; flex-wrap: wrap; gap: 8px 28px; border-top: 1px solid rgba(25,24,23,0.08); font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: #6B6E6A;">
+      <span>PRF <span class="t-prf" style="color: #191817;">000</span> HZ</span>
+      <span>Range gate <span class="t-gate" style="color: #191817;">00000</span> M</span>
+      <span>Track bearing <span class="t-brg" style="color: var(--accent);">000</span>&#176;</span>
+      <span>Session uptime <span class="t-up" style="color: #191817;">00:00</span></span>
+      <span>&mdash; all four are measuring your scroll wheel</span>
+    </div>
+  </div>
 
-  <main id="top" class="wrap" style="position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; padding: 0 32px;">
+  <!-- ============ HERO ============ -->
+  <div id="top" style="position: relative; overflow: hidden;">
+    <canvas class="circuit" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; display: block; pointer-events: none;" role="img" aria-label="Circuit traces routing themselves across the page with signal pulses running along them"></canvas>
 
-    <section onMouseMove="{{ onHeroMove }}" onMouseLeave="{{ onHeroLeave }}" class="hero" style="position: relative; padding: 92px 0 55px; display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 55px; align-items: end;">
-      <sc-if value="{{ crosshair }}" hint-placeholder-val="{{ false }}">
-        <div aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none; z-index: 3; overflow: hidden;">
-          <div style="position: absolute; top: 0; bottom: 0; width: 1px; background: color-mix(in srgb, var(--color-accent) 38%, transparent); left: {{ cx }};"></div>
-          <div style="position: absolute; left: 0; right: 0; height: 1px; background: color-mix(in srgb, var(--color-accent) 38%, transparent); top: {{ cy }};"></div>
-          <div style="position: absolute; width: 9px; height: 9px; border: 1px solid var(--color-accent); border-radius: 50%; left: {{ cx }}; top: {{ cy }}; margin: -5px 0 0 -5px;"></div>
+    <div class="heroPar" style="position: relative; box-sizing: border-box; padding: clamp(70px, 11vh, 140px) clamp(20px, 5vw, 80px) clamp(60px, 8vh, 100px) clamp(20px, 5vw, 80px); will-change: transform, opacity;">
+      <div style="position: relative; z-index: 2; max-width: 1180px;">
+
+        <div style="overflow: hidden; margin-bottom: clamp(20px, 3.5vh, 40px);">
+          <div class="rv" style="opacity: 0; transform: translateY(110%); transition: transform 1s cubic-bezier(.16,1,.3,1), opacity 1s; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #6B6E6A;"><span style="color: var(--accent);">(00)</span> &nbsp;<span class="scr">Electronics &amp; Communication Engineer</span></div>
         </div>
-      </sc-if>
-      <div>
-        <div style="display: flex; align-items: center; gap: var(--space-3); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-accent-700); font-variant-numeric: tabular-nums;">
-          <span>01</span>
-          <span style="width: 46px; height: 1px; background: var(--color-accent); transform-origin: left center; animation: drawRule 700ms 120ms cubic-bezier(0.22, 1, 0.36, 1) both; animation-timeline: view(); animation-range: entry 0% cover 18%;"></span>
-          <x-import component="ScrambleText" from="./ScrambleText.jsx" text="Hubballi / Bengaluru, India" trigger="mount" speed="34" delay="600" style="display: inline-block;" hint-size="auto,14px">Hubballi / Bengaluru, India</x-import>
+
+        <h1 class="skew" style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: clamp(50px, 9.4vw, 152px); line-height: 0.93; letter-spacing: -0.032em; will-change: transform;">
+          <span style="display: block; overflow: hidden; padding-bottom: 8px;"><span class="rv" style="display: block; opacity: 0; transform: translateY(110%); transition: transform 1.1s cubic-bezier(.16,1,.3,1), opacity 1.1s; transition-delay: .06s;">Amogh P</span></span>
+          <span style="display: block; overflow: hidden; padding-bottom: 8px;"><span class="rv" style="display: block; opacity: 0; transform: translateY(110%); transition: transform 1.1s cubic-bezier(.16,1,.3,1), opacity 1.1s; transition-delay: .15s;">Ukkadgatri</span></span>
+        </h1>
+
+        <div style="margin-top: clamp(26px, 4vh, 48px); max-width: 740px; font-family: 'Instrument Serif', Georgia, serif; font-size: clamp(20px, 2.35vw, 33px); line-height: 1.3; letter-spacing: -0.01em;">
+          <span style="display: block; overflow: hidden;"><span class="rv" style="display: block; opacity: 0; transform: translateY(110%); transition: transform 1s cubic-bezier(.16,1,.3,1), opacity 1s; transition-delay: .28s;">Radar and sensing systems for defence,</span></span>
+          <span style="display: block; overflow: hidden;"><span class="rv" style="display: block; opacity: 0; transform: translateY(110%); transition: transform 1s cubic-bezier(.16,1,.3,1), opacity 1s; transition-delay: .35s;"><em style="font-style: italic; color: var(--accent);">taken end to end.</em></span></span>
         </div>
-        <h1 style="font-family: var(--font-heading); font-weight: 400; font-size: clamp(52px, 8vw, 104px); line-height: 0.95; letter-spacing: -0.015em; margin: var(--space-6) 0 0; animation: settleIn 1000ms 80ms cubic-bezier(0.22, 1, 0.36, 1) both;">Amogh<br>Ukkadgatri</h1>
-        <p style="font-size: 20px; line-height: 1.55; margin: var(--space-6) 0 0; max-width: 34ch; animation: settleIn 1000ms 240ms cubic-bezier(0.22, 1, 0.36, 1) both; color: var(--color-neutral-800);">Radar and sensing systems for defence — taken end to end, from requirements and trade studies through to working hardware.</p>
-        <div style="display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-8); animation: settleIn 1000ms 380ms cubic-bezier(0.22, 1, 0.36, 1) both;">
-          <a href="assets/Amogh_Ukkadgatri_Resume.pdf" download style="display: inline-block; padding: 11px 22px; border: 1px solid var(--color-accent); border-radius: var(--radius-md); color: var(--color-accent-700); font-size: 12.5px; letter-spacing: 0.1em; text-transform: uppercase; transition: background 220ms ease, border-color 220ms ease, transform 220ms cubic-bezier(0.22, 1, 0.36, 1);" style-hover="background: var(--color-accent-100); border-color: var(--color-accent-600); transform: translateY(-2px);">Download résumé</a>
-          <a href="#projects" style="display: inline-block; padding: 11px 22px; border: 1px solid var(--color-divider); border-radius: var(--radius-md); color: var(--color-neutral-800); font-size: 12.5px; letter-spacing: 0.1em; text-transform: uppercase;" style-hover="border-color: var(--color-accent); color: var(--color-accent-700);">See the work</a>
+
+        <p class="rv" style="opacity: 0; transform: translateY(18px); transition: transform 1s cubic-bezier(.16,1,.3,1), opacity 1s; transition-delay: .44s; margin: clamp(22px, 3vh, 36px) 0 0 0; max-width: 520px; font-size: clamp(14px, 1.05vw, 16px); line-height: 1.7; color: #6B6E6A;">From requirements and trade studies through to working hardware.</p>
+
+        <div class="rv" style="opacity: 0; transform: translateY(18px); transition: transform 1s cubic-bezier(.16,1,.3,1), opacity 1s; transition-delay: .52s; display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: clamp(28px, 4vh, 44px);">
+          <a href="assets/Amogh_Ukkadgatri_Resume.pdf" style="display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; color: #F2F0EA; background: var(--accent); border-radius: 999px; padding: 15px 28px;">Download r&#233;sum&#233;</a>
+          <a href="#projects" style="display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; border: 1px solid rgba(25,24,23,0.3); border-radius: 999px; padding: 15px 28px;">See the work</a>
+        </div>
+
+        <div class="rv" style="opacity: 0; transform: translateY(18px); transition: transform 1s cubic-bezier(.16,1,.3,1), opacity 1s; transition-delay: .6s; display: flex; align-items: center; gap: 14px; margin-top: clamp(44px, 7vh, 84px); font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #6B6E6A;">
+          <span style="color: var(--accent);">01</span>
+          <span>Hubballi / Bengaluru, India</span>
+          <span style="display: block; width: clamp(40px, 8vw, 96px); height: 1px; background: rgba(25,24,23,0.25);"></span>
+          <span>Scroll</span>
         </div>
       </div>
-      <div style="border-left: 1px solid var(--color-divider); padding-left: var(--space-6); animation: settleIn 1100ms 460ms cubic-bezier(0.22, 1, 0.36, 1) both;">
-        <div style="font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-neutral-600);">Current posting</div>
-        <div style="font-family: var(--font-heading); font-size: 30px; font-weight: 500; line-height: 1.15; margin-top: var(--space-2);">R&amp;D Intern, SSS Defence</div>
-        <div style="font-size: 13px; color: var(--color-neutral-700); margin-top: 6px; font-variant-numeric: tabular-nums;">Sep 2025 — Present · Radar &amp; sensing systems</div>
-        <div style="height: 1px; background: var(--color-divider); margin: 22px 0;"></div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4) var(--space-3);">
-          <sc-for list="{{ heroStats }}" as="s" hint-placeholder-count="4">
-            <div>
-              <div style="font-family: var(--font-heading); font-size: 34px; font-weight: 400; font-variant-numeric: tabular-nums; line-height: 1;">{{ s.n }}</div>
-              <div style="font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-neutral-600); margin-top: var(--space-1);">{{ s.k }}</div>
+    </div>
+  </div>
+
+  <!-- ============ CURRENT ROLE ============ -->
+  <div style="box-sizing: border-box; padding: 0 clamp(20px, 5vw, 80px) clamp(70px, 10vh, 130px) clamp(20px, 5vw, 80px);">
+    <div class="rv" style="opacity: 0; transform: scaleX(0); transform-origin: left; transition: transform 1.2s cubic-bezier(.16,1,.3,1), opacity .4s; height: 1px; background: rgba(25,24,23,0.28);"></div>
+    <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 20px; padding-top: 26px;">
+      <div style="overflow: hidden;">
+        <div class="rv" style="opacity: 0; transform: translateY(110%); transition: transform 1s cubic-bezier(.16,1,.3,1), opacity 1s; font-family: 'Instrument Serif', Georgia, serif; font-size: clamp(26px, 2.6vw, 38px); line-height: 1.2;">R&amp;D Intern, SSS Defence</div>
+      </div>
+      <div class="rv" style="opacity: 0; transform: translateY(14px); transition: transform .9s cubic-bezier(.16,1,.3,1), opacity .9s; transition-delay: .1s; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #6B6E6A;">Sep 2025 — Present &nbsp;·&nbsp; Radar &amp; sensing systems</div>
+    </div>
+    <svg class="traceWrap" viewBox="0 0 1200 90" width="100%" height="90" preserveAspectRatio="none" style="margin-top: 30px; display: block;" role="img" aria-label="Signal trace that draws as the page scrolls">
+      <line x1="0" y1="45" x2="1200" y2="45" stroke="rgba(25,24,23,0.12)"></line>
+      <path class="trace" d="M0 45 L120 45 L140 18 L160 72 L180 45 L340 45 L358 30 L376 60 L394 45 L560 45 L580 8 L600 82 L620 45 L800 45 L816 34 L832 56 L848 45 L1000 45 L1018 22 L1036 68 L1054 45 L1200 45" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linejoin="round" vector-effect="non-scaling-stroke"></path>
+    </svg>
+  </div>
+
+  <!-- ============ 02 ABOUT ============ -->
+  <div id="about" style="box-sizing: border-box; padding: 0 clamp(20px, 5vw, 80px) clamp(70px, 10vh, 120px) clamp(20px, 5vw, 80px); display: grid; grid-template-columns: var(--side-cols); gap: clamp(24px, 4vw, 64px);">
+    <div class="side-label" style="position: sticky; top: var(--mast); align-self: start;">
+      <div class="rv" style="opacity: 0; transform: translateY(14px); transition: transform .9s cubic-bezier(.16,1,.3,1), opacity .9s; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #6B6E6A;"><span style="color: var(--accent);">(02)</span><br><span class="scr">About</span></div>
+    </div>
+    <div>
+      <div class="skew" style="font-family: 'Instrument Serif', Georgia, serif; font-size: clamp(32px, 4.4vw, 62px); line-height: 1.12; letter-spacing: -0.02em; max-width: 900px; will-change: transform;">
+        <span style="display: block; overflow: hidden; padding-bottom: 4px;"><span class="rv" style="display: block; opacity: 0; transform: translateY(110%); transition: transform 1.05s cubic-bezier(.16,1,.3,1), opacity 1.05s;">Hardware owned</span></span>
+        <span style="display: block; overflow: hidden; padding-bottom: 4px;"><span class="rv" style="display: block; opacity: 0; transform: translateY(110%); transition: transform 1.05s cubic-bezier(.16,1,.3,1), opacity 1.05s; transition-delay: .08s;"><em style="font-style: italic;">end to end.</em></span></span>
+      </div>
+      <div class="cols-2" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(24px, 3vw, 44px); margin-top: clamp(36px, 5vh, 60px); max-width: 860px;">
+        <p class="rv" style="opacity: 0; transform: translateY(20px); transition: transform .95s cubic-bezier(.16,1,.3,1), opacity .95s; margin: 0; font-size: clamp(14px, 1.05vw, 16px); line-height: 1.7; color: #6B6E6A;">Right now that means radar sensing for defence — compact, high-frequency sensors that have to detect and track small, fast-moving aerial targets reliably. The role runs from requirements and trade studies, through detection and link-budget analysis and antenna design backed by EM simulation, into RF and mixed-signal boards, digital back-end sizing, power architecture and system safety.</p>
+        <p class="rv" style="opacity: 0; transform: translateY(20px); transition: transform .95s cubic-bezier(.16,1,.3,1), opacity .95s; transition-delay: .09s; margin: 0; font-size: clamp(14px, 1.05vw, 16px); line-height: 1.7; color: #6B6E6A;">I came to it from acoustic counter-UAS: microphone arrays, the firmware that reads them, and the maths that turns a few microseconds of delay into a bearing. When the off-the-shelf path ran out I built my own — the classic ESP32 gives you one I2S RX channel, so I moved capture to TDM and built the rig that validated the custom arrays single-handedly.</p>
+      </div>
+      <div class="rv facts" style="opacity: 0; transform: translateY(20px); transition: transform .95s cubic-bezier(.16,1,.3,1), opacity .95s; transition-delay: .16s; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; margin-top: clamp(36px, 5vh, 56px); max-width: 860px; border-top: 1px solid rgba(25,24,23,0.16); padding-top: 22px;">
+        <span><span style="display: block; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: #6B6E6A;">Base</span><span style="display: block; margin-top: 8px; font-family: 'Instrument Serif', Georgia, serif; font-size: 24px;">Hubballi, KA</span></span>
+        <span><span style="display: block; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: #6B6E6A;">Posted</span><span style="display: block; margin-top: 8px; font-family: 'Instrument Serif', Georgia, serif; font-size: 24px;">Bengaluru</span></span>
+        <span><span style="display: block; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: #6B6E6A;">Degree</span><span style="display: block; margin-top: 8px; font-family: 'Instrument Serif', Georgia, serif; font-size: 24px;">B.E. ECE, 2026</span></span>
+        <span><span style="display: block; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: #6B6E6A;">Availability</span><span style="display: block; margin-top: 8px; font-family: 'Instrument Serif', Georgia, serif; font-size: 24px;">Open — 2026</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ STATEMENT — word by word ============ -->
+  <div class="stmtSec" style="box-sizing: border-box; padding: clamp(40px, 7vh, 90px) clamp(20px, 5vw, 80px) clamp(70px, 11vh, 140px) clamp(20px, 5vw, 80px);">
+    <p class="stmt" style="margin: 0; max-width: 1100px; font-family: 'Instrument Serif', Georgia, serif; font-size: clamp(30px, 4.2vw, 60px); line-height: 1.24; letter-spacing: -0.015em;"><span class="wd" style="color: #6B6E6A; transition: color .35s ease;">I</span> <span class="wd" style="color: #6B6E6A; transition: color .35s ease;">build</span> <span class="wd" style="color: #6B6E6A; transition: color .35s ease;">the</span> <span class="wd" style="color: #6B6E6A; transition: color .35s ease;">electronics</span> <span class="wd" style="color: #6B6E6A; transition: color .35s ease;">that</span> <span class="wd" style="color: #6B6E6A; transition: color .35s ease;">sit</span> <span class="wd" style="color: #6B6E6A; transition: color .35s ease;">between</span> <span class="wd" style="color: #6B6E6A; transition: color .35s ease;">a</span> <span class="wd" style="color: #6B6E6A; transition: color .35s ease;">physical</span> <span class="wd" style="color: #6B6E6A; transition: color .35s ease;">signal</span> <span class="wd" style="color: #6B6E6A; transition: color .35s ease;">and</span> <span class="wd" style="color: #6B6E6A; transition: color .35s ease;">a</span> <span class="wd" style="color: #6B6E6A; transition: color .35s ease;">decision.</span></p>
+  </div>
+
+  <!-- ============ INTERFERENCE FIELD ============ -->
+  <div class="fieldSec" style="position: relative; height: 380vh; background: #EDEAE2; border-top: 1px solid rgba(25,24,23,0.16); border-bottom: 1px solid rgba(25,24,23,0.16);">
+    <div style="position: sticky; top: var(--mast); height: calc(100vh - var(--mast)); overflow: hidden;">
+      <canvas class="field" style="display: block; width: 100%; height: 100%;" role="img" aria-label="An abstract field of dots that ripples and folds as the page scrolls"></canvas>
+
+      <div style="position: absolute; left: clamp(20px, 5vw, 80px); bottom: clamp(26px, 5vh, 54px); display: flex; flex-direction: column; gap: 10px;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #6B6E6A;"><span style="color: var(--accent);">(03)</span> &nbsp;<span class="scr">Interference</span></span>
+        <span class="fieldCap" style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: clamp(22px, 2.4vw, 34px); line-height: 1.1; transition: opacity .3s ease, transform .3s ease;">Constructive, mostly.</span>
+      </div>
+
+      <div style="position: absolute; right: clamp(20px, 5vw, 80px); bottom: clamp(34px, 6vh, 64px); width: clamp(90px, 14vw, 200px); height: 1px; background: rgba(25,24,23,0.22);">
+        <span class="fieldRail" style="display: block; width: 0%; height: 1px; background: var(--accent);"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 04 SERVICE LOG ============ -->
+  <div id="log" style="box-sizing: border-box; padding: clamp(70px, 11vh, 140px) clamp(20px, 5vw, 80px) clamp(70px, 11vh, 140px) clamp(20px, 5vw, 80px); display: grid; grid-template-columns: var(--side-cols); gap: clamp(24px, 4vw, 64px);">
+    <div class="side-label" style="position: sticky; top: var(--mast); align-self: start;">
+      <div class="rv" style="opacity: 0; transform: translateY(14px); transition: transform .9s cubic-bezier(.16,1,.3,1), opacity .9s; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #6B6E6A;"><span style="color: var(--accent);">(04)</span><br><span class="scr">Service log</span></div>
+    </div>
+    <div>
+      ${(roles || []).map(function (row) { return `
+        <div class="rv" style="opacity: 0; transform: translateY(24px); transition: transform .95s cubic-bezier(.16,1,.3,1), opacity .95s; padding: clamp(20px, 3vh, 30px) 0; border-top: 1px solid rgba(25,24,23,0.16);">
+          <span class="lag row3" style="display: grid; grid-template-columns: minmax(0, 150px) minmax(0, 1fr) minmax(0, 150px); gap: 20px; align-items: baseline; will-change: transform;">
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; color: #6B6E6A;">${row.dates}</span>
+            <span>
+              <span style="display: block; font-family: 'Instrument Serif', Georgia, serif; font-size: clamp(22px, 2.2vw, 30px); line-height: 1.2;">${row.org}</span>
+              <span style="display: block; margin-top: 6px; font-size: 14px; color: #6B6E6A;">${row.title}</span>
+              ${(row.bullets || []).length ? `<ul style="margin: 20px 0 0 0; padding-left: 18px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.65; color: #191817;">${row.bullets.map(function (b) { return `<li>${b}</li>`; }).join('')}</ul>` : ''}
+            </span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #6B6E6A; text-align: right;">${row.place}</span>
+          </span>
+        </div>
+      `; }).join("")}
+
+      <div class="rv" style="opacity: 0; transform: translateY(24px); transition: transform .95s cubic-bezier(.16,1,.3,1), opacity .95s; margin-top: clamp(36px, 5vh, 56px); border-top: 1px solid rgba(25,24,23,0.16); padding-top: 26px;">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #6B6E6A; margin-bottom: 18px;">Leadership</div>
+        <div class="cols-2" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 40px;">
+          ${(leadership || []).map(function (l) { return `
+            <span style="font-size: 15px; line-height: 1.55;">${l.label}</span>
+          `; }).join("")}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 05 PROJECTS (pinned index) ============ -->
+  <div id="projects" style="border-top: 1px solid rgba(25,24,23,0.16);">
+    <div style="box-sizing: border-box; padding: clamp(60px, 9vh, 110px) clamp(20px, 5vw, 80px) clamp(30px, 5vh, 60px) clamp(20px, 5vw, 80px);">
+      <div style="overflow: hidden;">
+        <div class="rv" style="opacity: 0; transform: translateY(110%); transition: transform 1s cubic-bezier(.16,1,.3,1), opacity 1s; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #6B6E6A;"><span style="color: var(--accent);">(05)</span> &nbsp;<span class="scr">Projects</span></div>
+      </div>
+      <div class="skew" style="overflow: hidden; margin-top: 22px; will-change: transform;">
+        <div class="rv" style="opacity: 0; transform: translateY(110%); transition: transform 1.1s cubic-bezier(.16,1,.3,1), opacity 1.1s; transition-delay: .08s; font-family: 'Instrument Serif', Georgia, serif; font-size: clamp(34px, 5vw, 72px); line-height: 1.05; letter-spacing: -0.02em;">Six builds, <em style="font-style: italic; color: var(--accent);">to hardware.</em></div>
+      </div>
+    </div>
+
+    <div class="proj-grid" style="display: grid; grid-template-columns: minmax(0, 420px) minmax(0, 1fr); gap: 0; align-items: start;">
+      <div class="proj-pin" style="position: sticky; top: var(--mast); height: calc(100vh - var(--mast)); box-sizing: border-box; padding: 0 clamp(20px, 3vw, 44px) 0 clamp(20px, 5vw, 80px); display: flex; flex-direction: column; justify-content: center; gap: 22px; border-right: 1px solid rgba(25,24,23,0.16);">
+        <div style="display: flex; align-items: baseline; gap: 12px;">
+          <span class="idx" style="font-family: 'Instrument Serif', Georgia, serif; font-size: clamp(72px, 9vw, 132px); line-height: 0.82; letter-spacing: -0.04em; color: var(--accent); transition: opacity .2s ease;">01</span>
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.16em; color: #6B6E6A;">/ 06</span>
+        </div>
+        <div class="ptitle" style="font-family: 'Instrument Serif', Georgia, serif; font-size: clamp(26px, 3vw, 42px); line-height: 1.14; letter-spacing: -0.01em; transition: opacity .2s ease, transform .2s ease; min-height: 2.3em;">${projects[0].title}</div>
+        <div class="pmeta" style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #6B6E6A; transition: opacity .2s ease;">${projects[0].domain} &nbsp;·&nbsp; ${projects[0].dates}</div>
+        <div style="margin-top: 8px; width: 100%; height: 2px; background: rgba(25,24,23,0.16);">
+          <div class="rail" style="width: 0%; height: 2px; background: var(--accent);"></div>
+        </div>
+      </div>
+
+      <div style="box-sizing: border-box; padding: 0 clamp(20px, 5vw, 80px) 0 clamp(20px, 3vw, 52px);">
+        ${(projects || []).map(function (p) { return `
+          <div class="proj" style="min-height: 78vh; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; gap: 20px; padding: clamp(36px, 6vh, 60px) 0; border-bottom: 1px solid rgba(25,24,23,0.12); opacity: 0.34; transition: opacity .45s ease;">
+            <div style="display: flex; align-items: center; gap: 14px;">
+              <span class="pnum" style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.2em; color: #6B6E6A; transition: color .35s ease;">${p.num}</span>
+              <span class="pbar" style="display: block; height: 1px; width: 28px; background: rgba(25,24,23,0.25); transition: width .55s cubic-bezier(.16,1,.3,1), background .35s ease;"></span>
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: #6B6E6A;">${p.dates} &nbsp;·&nbsp; ${p.domain}</span>
             </div>
-          </sc-for>
-        </div>
-      </div>
-    </section>
-
-    <sc-if value="{{ telemetry }}" hint-placeholder-val="{{ true }}">
-      <div class="metrics" style="display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--color-divider); border-bottom: 1px solid var(--color-divider); background: color-mix(in srgb, var(--color-neutral-100) 42%, transparent); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);">
-        <div style="padding: var(--space-3) var(--space-4); border-right: 1px solid var(--color-divider);">
-          <div style="font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-neutral-500);">PRF</div>
-          <div style="font-size: 14px; font-variant-numeric: tabular-nums; margin-top: var(--space-1);">{{ tSample }}</div>
-        </div>
-        <div style="padding: var(--space-3) var(--space-4); border-right: 1px solid var(--color-divider);">
-          <div style="font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-neutral-500);">Range gate</div>
-          <div style="font-size: 14px; font-variant-numeric: tabular-nums; margin-top: var(--space-1);">{{ tChan }}</div>
-        </div>
-        <div style="padding: var(--space-3) var(--space-4); border-right: 1px solid var(--color-divider);">
-          <div style="font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-neutral-500);">Track bearing</div>
-          <div style="font-size: 14px; font-variant-numeric: tabular-nums; margin-top: var(--space-1);">{{ tBearing }}</div>
-        </div>
-        <div style="padding: var(--space-3) var(--space-4);">
-          <div style="font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-neutral-500);">Session uptime</div>
-          <div style="font-size: 14px; font-variant-numeric: tabular-nums; margin-top: var(--space-1);">{{ tUptime }}</div>
-        </div>
-      </div>
-    </sc-if>
-
-    <section id="about" style="padding: 74px 0 55px; animation: revealUp 900ms cubic-bezier(0.22, 1, 0.36, 1) both; animation-timeline: view(); animation-range: entry 4% cover 24%;">
-      <div style="display: flex; align-items: baseline; gap: var(--space-3); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-accent-700); font-variant-numeric: tabular-nums;">
-        <span>02</span><span style="width: 46px; height: 1px; background: var(--color-accent); transform-origin: left center; animation: drawRule 700ms 120ms cubic-bezier(0.22, 1, 0.36, 1) both; animation-timeline: view(); animation-range: entry 0% cover 18%;"></span><x-import component="ScrambleText" from="./ScrambleText.jsx" text="About" trigger="view" speed="26" style="display: inline-block;" hint-size="auto,14px">About</x-import>
-      </div>
-      <h2 style="font-family: var(--font-heading); font-weight: 400; font-size: clamp(34px, 4.4vw, 54px); line-height: 1.05; margin: var(--space-4) 0 var(--space-8); max-width: 22ch;"><x-import component="ScrambleText" from="./ScrambleText.jsx" text="Hardware owned end to end." trigger="view" speed="18" style="display: inline;" hint-size="auto,1em">Hardware owned end to end.</x-import></h2>
-      <div class="two-col" style="display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 55px;">
-        <div class="prose-cols" style="column-count: 2; column-gap: var(--space-8); column-rule: 1px solid var(--color-divider); text-align: justify; hyphens: auto; text-wrap: pretty; font-size: 15.5px; line-height: 1.72; color: var(--color-neutral-900);">
-          <p style="margin: 0 0 var(--space-4);">I build the electronics that sit between a physical signal and a decision. Right now that means radar sensing for defence — compact, high-frequency sensors that have to detect and track small, fast-moving aerial targets reliably.</p>
-          <p style="margin: 0 0 var(--space-4);">The role is deliberately end to end. It starts at requirements and trade studies, runs through detection and link-budget analysis and antenna design backed by EM simulation, and carries on into real hardware: RF and mixed-signal boards, digital back-end sizing, power architecture and the safety side of the system.</p>
-          <p style="margin: 0 0 var(--space-4);">A lot of it is systems engineering rather than any single discipline — reconciling what neighbouring teams hand over against what the sensor can physically do, and closing the gaps that turn up.</p>
-          <p style="margin: 0;">I came to it from acoustic counter-UAS: microphone arrays, the firmware that reads them, and the maths that turns a few microseconds of delay into a bearing. When the off-the-shelf path ran out I built my own — the classic ESP32 gives you one I2S RX channel, so I moved capture to TDM and built the rig that validated the custom arrays single-handedly.</p>
-        </div>
-        <div>
-          <div style="border: 1px solid var(--color-divider); border-radius: var(--radius-md); padding: 22px;">
-            <div style="font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-neutral-600);">Record</div>
-            <div style="height: 1px; background: var(--color-divider); margin: var(--space-3) 0;"></div>
-            <sc-for list="{{ facts }}" as="f" hint-placeholder-count="5">
-              <div style="display: flex; justify-content: space-between; gap: var(--space-3); padding: 8px 0; border-bottom: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent); font-size: 13px;">
-                <span style="color: var(--color-neutral-600); letter-spacing: 0.04em;">{{ f.k }}</span>
-                <span style="text-align: right; font-variant-numeric: tabular-nums;">{{ f.v }}</span>
-              </div>
-            </sc-for>
-            <div style="font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-neutral-600); margin-top: 22px;">Leadership</div>
-            <div style="height: 1px; background: var(--color-divider); margin: var(--space-3) 0;"></div>
-            <ul style="margin: 0; padding-left: var(--space-4); font-size: 13.5px; line-height: 1.65; color: var(--color-neutral-900);">
-              <li style="margin-bottom: 6px;">Chair, KLEIT–IEEE MTT-S Chapter (2024–25)</li>
-              <li style="margin-bottom: 6px;">Vice-Chair, KLEIT–IEEE Student Branch (2023–24)</li>
-              <li style="margin-bottom: 6px;">Coordinator, Technical &amp; Cultural Fest</li>
-              <li>Class Representative · University Theatre Group</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="experience" style="padding: 55px 0; animation: revealUp 900ms cubic-bezier(0.22, 1, 0.36, 1) both; animation-timeline: view(); animation-range: entry 4% cover 24%;">
-      <div style="display: flex; align-items: baseline; gap: var(--space-3); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-accent-700); font-variant-numeric: tabular-nums;">
-        <span>03</span><span style="width: 46px; height: 1px; background: var(--color-accent); transform-origin: left center; animation: drawRule 700ms 120ms cubic-bezier(0.22, 1, 0.36, 1) both; animation-timeline: view(); animation-range: entry 0% cover 18%;"></span><x-import component="ScrambleText" from="./ScrambleText.jsx" text="Experience" trigger="view" speed="26" style="display: inline-block;" hint-size="auto,14px">Experience</x-import>
-      </div>
-      <h2 style="font-family: var(--font-heading); font-weight: 400; font-size: clamp(34px, 4.4vw, 54px); line-height: 1.05; margin: var(--space-4) 0 var(--space-8);"><x-import component="ScrambleText" from="./ScrambleText.jsx" text="Service log." trigger="view" speed="22" style="display: inline;" hint-size="auto,1em">Service log.</x-import></h2>
-      <sc-for list="{{ roles }}" as="r" hint-placeholder-count="1">
-        <div class="row-170" style="display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: var(--space-8); padding: var(--space-6) 0; border-top: 1px solid var(--color-divider);">
-          <div>
-            <div style="font-size: 12px; letter-spacing: 0.1em; color: var(--color-accent-700); font-variant-numeric: tabular-nums;">{{ r.dates }}</div>
-            <div style="font-size: 12px; color: var(--color-neutral-600); margin-top: 6px;">{{ r.place }}</div>
-          </div>
-          <div>
-            <div style="font-family: var(--font-heading); font-size: 27px; font-weight: 500; line-height: 1.2;"><x-import component="ScrambleText" from="./ScrambleText.jsx" text="{{ r.title }}" trigger="view" speed="22" style="display: inline;" hint-size="auto,1em">{{ r.title }}</x-import></div>
-            <div style="font-size: 12.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-neutral-600); margin-top: 6px;">{{ r.org }}</div>
-            <ul style="margin: var(--space-4) 0 0; padding-left: var(--space-4); font-size: 15px; line-height: 1.7; color: var(--color-neutral-900); text-wrap: pretty;">
-              <sc-for list="{{ r.bullets }}" as="b" hint-placeholder-count="4">
-                <li style="margin-bottom: var(--space-2);">{{ b }}</li>
-              </sc-for>
-            </ul>
-          </div>
-        </div>
-      </sc-for>
-      <div style="height: 1px; background: var(--color-divider);"></div>
-    </section>
-
-    <section id="projects" style="padding: 74px 0 55px; animation: revealUp 900ms cubic-bezier(0.22, 1, 0.36, 1) both; animation-timeline: view(); animation-range: entry 4% cover 24%;">
-      <div style="display: flex; align-items: baseline; gap: var(--space-3); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-accent-700); font-variant-numeric: tabular-nums;">
-        <span>04</span><span style="width: 46px; height: 1px; background: var(--color-accent); transform-origin: left center; animation: drawRule 700ms 120ms cubic-bezier(0.22, 1, 0.36, 1) both; animation-timeline: view(); animation-range: entry 0% cover 18%;"></span><x-import component="ScrambleText" from="./ScrambleText.jsx" text="Projects" trigger="view" speed="26" style="display: inline-block;" hint-size="auto,14px">Projects</x-import>
-      </div>
-      <h2 style="font-family: var(--font-heading); font-weight: 400; font-size: clamp(34px, 4.4vw, 54px); line-height: 1.05; margin: var(--space-4) 0 var(--space-3);"><x-import component="ScrambleText" from="./ScrambleText.jsx" text="Six builds, hover to inspect." trigger="view" speed="18" style="display: inline;" hint-size="auto,1em">Six builds, hover to inspect.</x-import></h2>
-      <p style="font-size: 13px; color: var(--color-neutral-600); margin: 0 0 var(--space-8); letter-spacing: 0.04em;">Move over a row — the panel on the right reads out the detail.</p>
-      <div class="proj" style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.86fr); gap: 46px; align-items: start;">
-        <div style="border-top: 1px solid var(--color-divider);">
-          <sc-for list="{{ projects }}" as="p" hint-placeholder-count="6">
-            <div onMouseEnter="{{ p.onEnter }}" onFocus="{{ p.onEnter }}" onClick="{{ p.onEnter }}" tabindex="0" role="button" style="{{ p.rowStyle }}">
-              <div style="display: flex; align-items: baseline; gap: var(--space-4);">
-                <span style="font-size: 11px; color: var(--color-neutral-500); font-variant-numeric: tabular-nums; letter-spacing: 0.1em; padding-top: 4px;">{{ p.num }}</span>
-                <div style="flex: 1;">
-                  <div style="font-family: var(--font-heading); font-size: 23px; font-weight: 500; line-height: 1.25;"><x-import component="ScrambleText" from="./ScrambleText.jsx" text="{{ p.title }}" trigger="view" speed="16" style="display: inline;" hint-size="auto,1em">{{ p.title }}</x-import></div>
-                  <div style="font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-neutral-600); margin-top: 5px; font-variant-numeric: tabular-nums;">{{ p.dates }} · {{ p.domain }}</div>
-                </div>
-                <span style="{{ p.markStyle }}"></span>
-              </div>
-            </div>
-          </sc-for>
-        </div>
-        <div class="proj-panel" style="position: sticky; top: 92px; border: 1px solid var(--color-divider); border-radius: var(--radius-md); padding: var(--space-6); background: color-mix(in srgb, var(--color-neutral-100) 55%, transparent); backdrop-filter: blur(14px) saturate(130%); -webkit-backdrop-filter: blur(14px) saturate(130%); box-shadow: inset 0 1px 0 color-mix(in srgb, var(--color-neutral-100) 80%, transparent), var(--shadow-sm); transition: box-shadow 320ms ease;">
-          <div style="display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-3);">
-            <div style="font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-neutral-600);">Detail readout</div>
-            <div style="font-size: 10.5px; letter-spacing: 0.14em; color: var(--color-accent); font-variant-numeric: tabular-nums;">{{ activeNum }}</div>
-          </div>
-          <div style="height: 1px; background: var(--color-divider); margin: var(--space-4) 0;"></div>
-          <div style="{{ detailAnim }}">
-          <div style="font-family: var(--font-heading); font-size: 31px; font-weight: 500; line-height: 1.18;">{{ activeTitle }}</div>
-          <div style="font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent-700); margin-top: var(--space-2); font-variant-numeric: tabular-nums;">{{ activeDates }}</div>
-          <p style="font-size: 15px; line-height: 1.7; color: var(--color-neutral-900); margin: var(--space-4) 0 0; text-wrap: pretty;">{{ activeBody }}</p>
-          <div style="height: 1px; background: var(--color-divider); margin: 22px 0;"></div>
-          <div style="font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-neutral-600); margin-bottom: 11px;">Stack</div>
-          <div style="display: flex; flex-wrap: wrap; gap: 6px;">
-            <sc-for list="{{ activeStack }}" as="s" hint-placeholder-count="4">
-              <span style="border: 1px solid color-mix(in srgb, var(--color-accent) 55%, transparent); border-radius: var(--radius-md); padding: 4px 10px; font-size: 11.5px; letter-spacing: 0.05em; color: var(--color-accent-700);">{{ s }}</span>
-            </sc-for>
-          </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="skills" style="padding: 74px 0 55px; animation: revealUp 900ms cubic-bezier(0.22, 1, 0.36, 1) both; animation-timeline: view(); animation-range: entry 4% cover 24%;">
-      <div style="display: flex; align-items: baseline; gap: var(--space-3); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-accent-700); font-variant-numeric: tabular-nums;">
-        <span>05</span><span style="width: 46px; height: 1px; background: var(--color-accent); transform-origin: left center; animation: drawRule 700ms 120ms cubic-bezier(0.22, 1, 0.36, 1) both; animation-timeline: view(); animation-range: entry 0% cover 18%;"></span><x-import component="ScrambleText" from="./ScrambleText.jsx" text="Skills" trigger="view" speed="26" style="display: inline-block;" hint-size="auto,14px">Skills</x-import>
-      </div>
-      <h2 style="font-family: var(--font-heading); font-weight: 400; font-size: clamp(34px, 4.4vw, 54px); line-height: 1.05; margin: var(--space-4) 0 var(--space-8);"><x-import component="ScrambleText" from="./ScrambleText.jsx" text="Capability matrix." trigger="view" speed="20" style="display: inline;" hint-size="auto,1em">Capability matrix.</x-import></h2>
-      <div class="two-col" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 55px;">
-        <sc-for list="{{ skillGroups }}" as="g" hint-placeholder-count="4">
-          <div style="padding: 22px 0; border-top: 1px solid var(--color-divider);">
-            <div style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-accent-700);">{{ g.name }}</div>
-            <div style="margin-top: var(--space-3);">
-              <sc-for list="{{ g.items }}" as="s" hint-placeholder-count="5">
-                <div style="display: flex; align-items: center; gap: var(--space-3); padding: 7px 0; border-bottom: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);">
-                  <span style="flex: 1; font-size: 14.5px; color: var(--color-neutral-900);">{{ s.label }}</span>
-                  <span style="font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-neutral-500);">{{ s.tier }}</span>
-                  <span style="display: flex; gap: 3px;">
-                    <sc-for list="{{ s.ticks }}" as="t" hint-placeholder-count="5">
-                      <span style="{{ t.style }}"></span>
-                    </sc-for>
-                  </span>
-                </div>
-              </sc-for>
+            <div style="font-family: 'Instrument Serif', Georgia, serif; font-size: clamp(28px, 3.4vw, 46px); line-height: 1.1; letter-spacing: -0.015em;">${p.title}</div>
+            <p style="margin: 0; max-width: 560px; font-size: clamp(14px, 1.05vw, 16px); line-height: 1.7; color: #6B6E6A;">${p.desc}</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px;">
+              ${(p.tags || []).map(function (t) { return `
+                <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: #6B6E6A; border: 1px solid rgba(25,24,23,0.22); border-radius: 999px; padding: 7px 12px;">${t.label}</span>
+              `; }).join("")}
             </div>
           </div>
-        </sc-for>
+        `; }).join("")}
       </div>
-    </section>
+    </div>
+  </div>
 
-    <section id="education" style="padding: 74px 0 55px; animation: revealUp 900ms cubic-bezier(0.22, 1, 0.36, 1) both; animation-timeline: view(); animation-range: entry 4% cover 24%;">
-      <div style="display: flex; align-items: baseline; gap: var(--space-3); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-accent-700); font-variant-numeric: tabular-nums;">
-        <span>06</span><span style="width: 46px; height: 1px; background: var(--color-accent); transform-origin: left center; animation: drawRule 700ms 120ms cubic-bezier(0.22, 1, 0.36, 1) both; animation-timeline: view(); animation-range: entry 0% cover 18%;"></span><x-import component="ScrambleText" from="./ScrambleText.jsx" text="Education" trigger="view" speed="26" style="display: inline-block;" hint-size="auto,14px">Education</x-import>
+  <!-- ============ 06 SKILLS ============ -->
+  <div id="skills" style="box-sizing: border-box; padding: clamp(70px, 11vh, 140px) 0 clamp(70px, 11vh, 140px) 0; border-top: 1px solid rgba(25,24,23,0.16); overflow: hidden;">
+    <div style="box-sizing: border-box; padding: 0 clamp(20px, 5vw, 80px);">
+      <div style="overflow: hidden;">
+        <div class="rv" style="opacity: 0; transform: translateY(110%); transition: transform 1s cubic-bezier(.16,1,.3,1), opacity 1s; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #6B6E6A;"><span style="color: var(--accent);">(06)</span> &nbsp;<span class="scr">Capability matrix</span></div>
       </div>
-      <h2 style="font-family: var(--font-heading); font-weight: 400; font-size: clamp(34px, 4.4vw, 54px); line-height: 1.05; margin: var(--space-4) 0 var(--space-8);"><x-import component="ScrambleText" from="./ScrambleText.jsx" text="Training." trigger="view" speed="24" style="display: inline;" hint-size="auto,1em">Training.</x-import></h2>
-      <sc-for list="{{ education }}" as="e" hint-placeholder-count="3">
-        <div class="row-170 row-170-3" style="display: grid; grid-template-columns: 170px minmax(0, 1fr) auto; gap: var(--space-8); align-items: baseline; padding: 22px 0; border-top: 1px solid var(--color-divider);">
-          <div style="font-size: 12px; letter-spacing: 0.1em; color: var(--color-accent-700); font-variant-numeric: tabular-nums;">{{ e.dates }}</div>
-          <div>
-            <div style="font-family: var(--font-heading); font-size: 24px; font-weight: 500; line-height: 1.25;"><x-import component="ScrambleText" from="./ScrambleText.jsx" text="{{ e.degree }}" trigger="view" speed="16" style="display: inline;" hint-size="auto,1em">{{ e.degree }}</x-import></div>
-            <div style="font-size: 12.5px; color: var(--color-neutral-600); margin-top: 5px;">{{ e.school }}</div>
+    </div>
+
+    <div style="margin: clamp(30px, 5vh, 54px) 0; display: flex; flex-direction: column; gap: 10px;">
+      <div style="white-space: nowrap; overflow: hidden;">
+        <div class="mq mqA" style="display: inline-block; will-change: transform; font-family: 'Instrument Serif', Georgia, serif; font-size: clamp(34px, 5vw, 76px); line-height: 1.12;"></div>
+      </div>
+      <div style="white-space: nowrap; overflow: hidden;">
+        <div class="mq mqB ghost" style="display: inline-block; will-change: transform; font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: clamp(34px, 5vw, 76px); line-height: 1.12;"></div>
+      </div>
+    </div>
+
+    <div class="skills-grid" style="box-sizing: border-box; padding: 0 clamp(20px, 5vw, 80px); display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(20px, 3vw, 40px);">
+      ${(groups || []).map(function (g) { return `
+        <div class="rv" style="opacity: 0; transform: translateY(24px); transition: transform .95s cubic-bezier(.16,1,.3,1), opacity .95s; border-top: 1px solid rgba(25,24,23,0.2); padding-top: 16px;">
+          <div style="font-family: 'Instrument Serif', Georgia, serif; font-size: clamp(20px, 1.8vw, 26px); line-height: 1.2;">${g.name}</div>
+          <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 18px;">
+            ${(g.items || []).map(function (it) { return `
+              <span style="display: block;">
+                <span style="display: flex; justify-content: space-between; gap: 10px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: #6B6E6A;"><span style="color: #191817;">${it.label}</span><span style="flex: none; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;">${it.tierName}</span></span>
+                <span style="display: block; margin-top: 6px; height: 2px; background: rgba(25,24,23,0.14);">
+                  <span class="tier" style="display: block; height: 2px; width: ${it.tier}; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform .9s cubic-bezier(.16,1,.3,1);"></span>
+                </span>
+              </span>
+            `; }).join("")}
           </div>
-          <div style="font-family: var(--font-heading); font-size: 26px; font-variant-numeric: tabular-nums; color: var(--color-text);">{{ e.mark }}</div>
         </div>
-      </sc-for>
-      <div style="height: 1px; background: var(--color-divider);"></div>
-    </section>
+      `; }).join("")}
+    </div>
+  </div>
 
-    <section id="notes" style="padding: 74px 0 55px; animation: revealUp 900ms cubic-bezier(0.22, 1, 0.36, 1) both; animation-timeline: view(); animation-range: entry 4% cover 24%;">
-      <div style="display: flex; align-items: baseline; gap: var(--space-3); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-accent-700); font-variant-numeric: tabular-nums;">
-        <span>07</span><span style="width: 46px; height: 1px; background: var(--color-accent); transform-origin: left center; animation: drawRule 700ms 120ms cubic-bezier(0.22, 1, 0.36, 1) both; animation-timeline: view(); animation-range: entry 0% cover 18%;"></span><x-import component="ScrambleText" from="./ScrambleText.jsx" text="Notes" trigger="view" speed="26" style="display: inline-block;" hint-size="auto,14px">Notes</x-import>
-      </div>
-      <h2 style="font-family: var(--font-heading); font-weight: 400; font-size: clamp(34px, 4.4vw, 54px); line-height: 1.05; margin: var(--space-4) 0 var(--space-3);"><x-import component="ScrambleText" from="./ScrambleText.jsx" text="Bench notes." trigger="view" speed="22" style="display: inline;" hint-size="auto,1em">Bench notes.</x-import></h2>
-      <p style="font-size: 13px; color: var(--color-neutral-600); margin: 0 0 var(--space-8); letter-spacing: 0.04em;">Short write-ups on problems I actually hit. Titles are planned — send me the ones you'd read first.</p>
-      <div class="notes-grid" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-6);">
-        <sc-for list="{{ notes }}" as="n" hint-placeholder-count="3">
-          <a href="#notes" style="display: block; border: 1px solid var(--color-divider); border-radius: var(--radius-md); padding: 22px; color: var(--color-text); transition: border-color 240ms ease, background 240ms ease, transform 300ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 300ms ease;" style-hover="border-color: var(--color-accent); background: color-mix(in srgb, var(--color-accent-100) 50%, transparent); transform: translateY(-3px); box-shadow: var(--shadow-sm);">>
-            <div style="font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-neutral-600); font-variant-numeric: tabular-nums;">{{ n.meta }}</div>
-            <div style="font-family: var(--font-heading); font-size: 23px; font-weight: 500; line-height: 1.25; margin-top: var(--space-3);"><x-import component="ScrambleText" from="./ScrambleText.jsx" text="{{ n.title }}" trigger="view" speed="18" style="display: inline;" hint-size="auto,1em">{{ n.title }}</x-import></div>
-            <p style="font-size: 14px; line-height: 1.65; color: var(--color-neutral-700); margin: 11px 0 0;">{{ n.blurb }}</p>
-            <div style="font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-accent-700); margin-top: var(--space-4);">Draft →</div>
+  <!-- ============ 07 EDUCATION ============ -->
+  <div id="education" style="box-sizing: border-box; padding: 0 clamp(20px, 5vw, 80px) clamp(70px, 11vh, 140px) clamp(20px, 5vw, 80px); display: grid; grid-template-columns: var(--side-cols); gap: clamp(24px, 4vw, 64px);">
+    <div class="side-label" style="position: sticky; top: var(--mast); align-self: start;">
+      <div class="rv" style="opacity: 0; transform: translateY(14px); transition: transform .9s cubic-bezier(.16,1,.3,1), opacity .9s; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #6B6E6A;"><span style="color: var(--accent);">(07)</span><br><span class="scr">Training</span></div>
+    </div>
+    <div>
+      ${(education || []).map(function (e) { return `
+        <div class="rv" style="opacity: 0; transform: translateY(24px); transition: transform .95s cubic-bezier(.16,1,.3,1), opacity .95s; padding: clamp(20px, 3vh, 30px) 0; border-top: 1px solid rgba(25,24,23,0.16);">
+          <span class="lag row3" style="display: grid; grid-template-columns: minmax(0, 150px) minmax(0, 1fr) minmax(0, 120px); gap: 20px; align-items: baseline; will-change: transform;">
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; color: #6B6E6A;">${e.dates}</span>
+            <span>
+              <span style="display: block; font-family: 'Instrument Serif', Georgia, serif; font-size: clamp(22px, 2.2vw, 30px); line-height: 1.2;">${e.degree}</span>
+              <span style="display: block; margin-top: 6px; font-size: 14px; color: #6B6E6A;">${e.school}</span>
+            </span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; color: #6B6E6A; text-align: right;">${e.mark}</span>
+          </span>
+        </div>
+      `; }).join("")}
+    </div>
+  </div>
+
+  <!-- ============ 08 BENCH NOTES — sticky stack ============ -->
+  <div id="notes" style="box-sizing: border-box; padding: 0 clamp(20px, 5vw, 80px) clamp(40px, 6vh, 80px) clamp(20px, 5vw, 80px); display: grid; grid-template-columns: var(--side-cols); gap: clamp(24px, 4vw, 64px);">
+    <div class="side-label" style="position: sticky; top: var(--mast); align-self: start;">
+      <div class="rv" style="opacity: 0; transform: translateY(14px); transition: transform .9s cubic-bezier(.16,1,.3,1), opacity .9s; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #6B6E6A;"><span style="color: var(--accent);">(08)</span><br><span class="scr">Bench notes</span></div>
+    </div>
+    <div>
+      ${(notes || []).map(function (n) { return `
+        <div style="position: sticky; top: ${n.top}; margin-bottom: 26vh;">
+          <a href="#notes" style="display: block; text-decoration: none; background: #F2F0EA; border-top: 1px solid rgba(25,24,23,0.28); box-shadow: 0 -18px 30px -18px rgba(25,24,23,0.28); padding: clamp(22px, 3.5vh, 34px) 0 clamp(26px, 4vh, 40px) 0;">
+            <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 20px;">
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent);">${n.num}</span>
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: #6B6E6A;">${n.state}</span>
+            </div>
+            <div style="margin-top: 14px; font-family: 'Instrument Serif', Georgia, serif; font-size: clamp(26px, 3.2vw, 44px); line-height: 1.12; letter-spacing: -0.015em;">${n.title}</div>
+            <p style="margin: 12px 0 0 0; max-width: 620px; font-size: clamp(14px, 1.05vw, 16px); line-height: 1.7; color: #6B6E6A;">${n.blurb}</p>
           </a>
-        </sc-for>
-      </div>
-    </section>
+        </div>
+      `; }).join("")}
+      <div style="height: 8vh;"></div>
+    </div>
+  </div>
 
-    <section id="contact" style="padding: 74px 0 92px; animation: revealUp 900ms cubic-bezier(0.22, 1, 0.36, 1) both; animation-timeline: view(); animation-range: entry 4% cover 24%;">
-      <div style="display: flex; align-items: baseline; gap: var(--space-3); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-accent-700); font-variant-numeric: tabular-nums;">
-        <span>08</span><span style="width: 46px; height: 1px; background: var(--color-accent); transform-origin: left center; animation: drawRule 700ms 120ms cubic-bezier(0.22, 1, 0.36, 1) both; animation-timeline: view(); animation-range: entry 0% cover 18%;"></span><x-import component="ScrambleText" from="./ScrambleText.jsx" text="Contact" trigger="view" speed="26" style="display: inline-block;" hint-size="auto,14px">Contact</x-import>
-      </div>
-      <h2 style="font-family: var(--font-heading); font-weight: 400; font-size: clamp(34px, 4.4vw, 54px); line-height: 1.05; margin: var(--space-4) 0 var(--space-8); max-width: 24ch;"><x-import component="ScrambleText" from="./ScrambleText.jsx" text="Open to hardware roles in defence &amp; aerospace." trigger="view" speed="14" style="display: inline;" hint-size="auto,1em">Open to hardware roles in defence &amp; aerospace.</x-import></h2>
-      <div class="two-col" style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 55px;">
-        <form onSubmit="{{ onSubmit }}" style="display: grid; gap: var(--space-4);">
-          <label style="display: grid; gap: 6px;">
-            <span style="font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-neutral-600);">Name</span>
-            <input type="text" required style="font-family: var(--font-body); font-size: 15px; padding: 11px var(--space-3); border: 1px solid var(--color-divider); border-radius: var(--radius-md); background: color-mix(in srgb, var(--color-neutral-100) 70%, transparent); color: var(--color-text);" style-focus="border-color: var(--color-accent); outline: none;">
-          </label>
-          <label style="display: grid; gap: 6px;">
-            <span style="font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-neutral-600);">Email</span>
-            <input type="email" required style="font-family: var(--font-body); font-size: 15px; padding: 11px var(--space-3); border: 1px solid var(--color-divider); border-radius: var(--radius-md); background: color-mix(in srgb, var(--color-neutral-100) 70%, transparent); color: var(--color-text);" style-focus="border-color: var(--color-accent); outline: none;">
-          </label>
-          <label style="display: grid; gap: 6px;">
-            <span style="font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-neutral-600);">Message</span>
-            <textarea rows="5" required style="font-family: var(--font-body); font-size: 15px; padding: 11px var(--space-3); border: 1px solid var(--color-divider); border-radius: var(--radius-md); background: color-mix(in srgb, var(--color-neutral-100) 70%, transparent); color: var(--color-text); resize: vertical;" style-focus="border-color: var(--color-accent); outline: none;"></textarea>
-          </label>
-          <div style="display: flex; align-items: center; gap: var(--space-4);">
-            <button type="submit" style="padding: 11px 24px; border: 1px solid var(--color-accent); border-radius: var(--radius-md); background: transparent; color: var(--color-accent-700); font-family: var(--font-body); font-size: 12.5px; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer;" style-hover="background: var(--color-accent-100); border-color: var(--color-accent-600);">Transmit</button>
-            <span style="font-size: 12.5px; color: var(--color-accent-700); font-style: italic;">{{ sentMsg }}</span>
-          </div>
-        </form>
-        <div>
-          <sc-for list="{{ links }}" as="l" hint-placeholder-count="4">
-            <a href="{{ l.href }}" style="display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-4); padding: 15px 0; border-top: 1px solid var(--color-divider); color: var(--color-text);" style-hover="color: var(--color-accent-700);">
-              <span style="font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-neutral-600);">{{ l.k }}</span>
-              <span style="font-size: 15px; text-align: right;">{{ l.v }}</span>
+  <!-- ============ 09 CONTACT ============ -->
+  <div id="contact" style="box-sizing: border-box; padding: clamp(70px, 11vh, 140px) clamp(20px, 5vw, 80px) clamp(40px, 6vh, 70px) clamp(20px, 5vw, 80px); border-top: 1px solid rgba(25,24,23,0.16);">
+    <div style="overflow: hidden;">
+      <div class="rv" style="opacity: 0; transform: translateY(110%); transition: transform 1s cubic-bezier(.16,1,.3,1), opacity 1s; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #6B6E6A;"><span style="color: var(--accent);">(09)</span> &nbsp;<span class="scr">Contact</span></div>
+    </div>
+    <div class="skew" style="margin-top: 24px; font-family: 'Instrument Serif', Georgia, serif; font-size: clamp(34px, 5.2vw, 78px); line-height: 1.05; letter-spacing: -0.02em; will-change: transform;">
+      <span style="display: block; overflow: hidden; padding-bottom: 4px;"><span class="rv" style="display: block; opacity: 0; transform: translateY(110%); transition: transform 1.1s cubic-bezier(.16,1,.3,1), opacity 1.1s;">Open to hardware roles in</span></span>
+      <span style="display: block; overflow: hidden; padding-bottom: 4px;"><span class="rv" style="display: block; opacity: 0; transform: translateY(110%); transition: transform 1.1s cubic-bezier(.16,1,.3,1), opacity 1.1s; transition-delay: .08s;"><em style="font-style: italic; color: var(--accent);">defence &amp; aerospace.</em></span></span>
+    </div>
+
+    <div class="cols-2" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(28px, 5vw, 72px); margin-top: clamp(40px, 6vh, 70px); align-items: start;">
+      <div>
+        <p class="rv" style="opacity: 0; transform: translateY(20px); transition: transform .95s cubic-bezier(.16,1,.3,1), opacity .95s; margin: 0; font-size: clamp(15px, 1.15vw, 17px); line-height: 1.7; color: #6B6E6A;">If you are building sensing hardware — mmWave, RF or acoustic — and want someone who will run the trade study, simulate the array, lay out the board and then check the maths, write to me.</p>
+        <p class="rv" style="opacity: 0; transform: translateY(20px); transition: transform .95s cubic-bezier(.16,1,.3,1), opacity .95s; transition-delay: .16s; margin: 22px 0 0 0; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.06em; line-height: 1.7; color: #6B6E6A;">Reply time is reliably shorter than the time it takes me to finish a bench note.</p>
+        <div class="rv" style="opacity: 0; transform: translateY(20px); transition: transform .95s cubic-bezier(.16,1,.3,1), opacity .95s; transition-delay: .2s; margin-top: 34px;">
+          ${(links || []).map(function (l) { return `
+            <a href="${l.href}"${l.href.indexOf('http') === 0 ? ' target="_blank" rel="noopener"' : ''} style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 15px 0; border-top: 1px solid rgba(25,24,23,0.16); text-decoration: none;">
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: #6B6E6A;">${l.k}</span>
+              <span style="font-size: 15px; text-align: right; overflow-wrap: anywhere;">${l.v}</span>
             </a>
-          </sc-for>
-          <div style="border-top: 1px solid var(--color-divider); padding-top: 22px; margin-top: 15px;">
-            <p style="font-size: 14.5px; line-height: 1.7; color: var(--color-neutral-700); margin: 0; text-align: justify;">If you are building sensing hardware — mmWave, RF or acoustic — and want someone who will run the trade study, simulate the array, lay out the board and then check the maths, write to me.</p>
-          </div>
+          `; }).join("")}
         </div>
       </div>
-    </section>
-  </main>
 
-  <footer style="position: relative; z-index: 1; border-top: 1px solid var(--color-divider);">
-    <div class="wrap" style="max-width: 1180px; margin: 0 auto; padding: var(--space-6) 32px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--space-3); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-neutral-500);">
-      <span>Amogh Ukkadgatri — Electronics &amp; Communication</span>
-      <span style="font-variant-numeric: tabular-nums;">Hubballi · Bengaluru · IN</span>
+      <form class="rv contact-form" style="opacity: 0; transform: translateY(20px); transition: transform .95s cubic-bezier(.16,1,.3,1), opacity .95s; transition-delay: .08s; display: flex; flex-direction: column; gap: 16px;">
+        <label style="display: flex; flex-direction: column; gap: 7px;">
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: #6B6E6A;">Name</span>
+          <input type="text" name="name" required autocomplete="name" style="background: transparent; border: none; border-bottom: 1px solid rgba(25,24,23,0.28); color: #191817; font-family: 'IBM Plex Sans', sans-serif; font-size: 16px; padding: 10px 0;">
+        </label>
+        <label style="display: flex; flex-direction: column; gap: 7px;">
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: #6B6E6A;">Email</span>
+          <input type="email" name="email" required autocomplete="email" style="background: transparent; border: none; border-bottom: 1px solid rgba(25,24,23,0.28); color: #191817; font-family: 'IBM Plex Sans', sans-serif; font-size: 16px; padding: 10px 0;">
+        </label>
+        <label style="display: flex; flex-direction: column; gap: 7px;">
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: #6B6E6A;">Message</span>
+          <textarea name="message" rows="3" required style="background: transparent; border: none; border-bottom: 1px solid rgba(25,24,23,0.28); color: #191817; font-family: 'IBM Plex Sans', sans-serif; font-size: 16px; padding: 10px 0; resize: vertical;"></textarea>
+        </label>
+        <button type="submit" style="align-self: flex-start; margin-top: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #F2F0EA; background: var(--accent); border: none; border-radius: 999px; padding: 16px 32px; cursor: pointer;">Transmit</button>
+        <span class="form-note" style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.06em; color: #6B6E6A;"></span>
+      </form>
     </div>
-  </footer>
+  </div>
+
+  <div style="box-sizing: border-box; padding: 26px clamp(20px, 5vw, 80px) 44px clamp(20px, 5vw, 80px); border-top: 1px solid rgba(25,24,23,0.16); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: #6B6E6A;">
+    <span>Amogh P Ukkadgatri — Electronics &amp; Communication</span>
+    <span>Drawn in code by someone who would rather be laying out a board</span>
+    <span>Hubballi &nbsp;·&nbsp; Bengaluru &nbsp;·&nbsp; IN</span>
+  </div>
+
 </div>
+`;
+}
 
-</x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;telemetry&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behaviour&quot;},&quot;sceneOpacity&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.12,&quot;min&quot;:0,&quot;max&quot;:0.4,&quot;step&quot;:0.01,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Background&quot;},&quot;availability&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Open — 2026&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Content&quot;}}">
-const PROJECTS = [
-  {
-    num: "01", title: "3D Sound Source Localization using Mic Array",
-    dates: "Sep 2025 — Mar 2026", domain: "Acoustic sensing",
-    body: "A real-time audio sensing system that detects and localizes sound sources in three dimensions using a microphone array and classical estimation methods. Built around time-difference-of-arrival across the array, with a triangulation stage that resolves azimuth and elevation. This is the project that put me on the counter-UAS team.",
-    stack: ["Mic array", "TDOA", "Python", "MATLAB", "Raspberry Pi"]
-  },
-  {
-    num: "02", title: "Real-time 3D Radar Tracking & Classification",
-    dates: "Sep 2024 — Nov 2024", domain: "Radar",
-    body: "A radar system that tracks objects in three dimensions in real time and classifies them by their distinct return signatures. Covered the chain from raw returns through detection and track association to a signature-based classifier.",
-    stack: ["Radar", "DSP", "Python", "Tracking"]
-  },
-  {
-    num: "03", title: "ESP32 TDM Test Rig for Custom PDM Arrays",
-    dates: "2026", domain: "Embedded / validation",
-    body: "Built single-handedly to validate custom microphone arrays. The classic ESP32 exposes a single I2S receive channel, which caps you at one PDM microphone; moving capture to TDM let the rig read several mics at once and made array validation possible without external hardware.",
-    stack: ["ESP32", "I2S / PDM", "TDM", "C", "Firmware"]
-  },
-  {
-    num: "04", title: "Automatic Rain Detection System",
-    dates: "Mar 2024 — May 2024", domain: "Embedded",
-    body: "A smart rain-detection module built from discrete embedded components, driving an automation output on detection. A compact exercise in sensor conditioning and threshold reliability in a noisy environment.",
-    stack: ["Sensors", "Op-amps", "8051", "Arduino"]
-  },
-  {
-    num: "05", title: "Smart Alcohol Detection & Engine Immobilization",
-    dates: "Jan 2023 — Mar 2023", domain: "Embedded / safety",
-    body: "A breath-alcohol sensor tied into a vehicle ignition lock: on detection above threshold, the system immobilizes the engine. Required a fail-safe interlock design — the failure mode had to be 'engine off', never 'engine on'.",
-    stack: ["MQ-3 sensor", "Relay interlock", "Microcontroller", "C"]
-  },
-  {
-    num: "06", title: "Battery Level Indicator & Centroid Finder",
-    dates: "2023 — 2024", domain: "Analog / tooling",
-    body: "Two smaller builds: an analog voltage-divider battery monitor with comparator-driven level indication, and a Python utility that computes centroid location from coordinate inputs — the latter written as a helper for array geometry work.",
-    stack: ["Analog", "Comparators", "MOSFETs", "Python"]
+/* =========================================================================
+   3. MOTION  --  framework-agnostic. Call initMotion() once the markup
+      is in the DOM. Everything below listens to the WINDOW.
+   ========================================================================= */
+function clamp01(v) { return v < 0 ? 0 : (v > 1 ? 1 : v); }
+function pad(v, n) { return String(v).padStart(n, '0'); }
+
+class Motion {
+  constructor() {
+    this.accent = (getComputedStyle(document.documentElement)
+      .getPropertyValue('--accent') || '#B04524').trim();
+    this.reduced = window.matchMedia
+      && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.lean = 5;
+    this.marqueeSpeed = 40;
+    this.rowLag = 10;
+    this.timers = [];
+    this.start = Date.now();
+    this.last = this.scrollTop;
+    this.vel = 0;
+    this.smooth = 0;
+    this.active = -1;
+    this.capI = undefined;
+    this.events = 0;
+    this.prf = 0;
+    this.prfAt = Date.now();
+    this.offA = 0;
+    this.offB = 0;
+    this.arm();
   }
-];
 
-const SKILL_GROUPS = [
-  { name: "RF & microwave", items: [
-    { label: "Radar sensor design", level: 4 }, { label: "Antenna array design", level: 4 },
-    { label: "Feed-network design", level: 4 }, { label: "Full-wave EM simulation", level: 4 },
-    { label: "Link-budget & detection analysis", level: 4 }, { label: "Radar physics", level: 4 }
-  ]},
-  { name: "Systems engineering", items: [
-    { label: "Requirements & trade studies", level: 4 },
-    { label: "Cross-team interface closure", level: 4 },
-    { label: "Test-rig & validation design", level: 4 },
-    { label: "System safety & interlocks", level: 3 },
-    { label: "Networking bring-up · DHCP / subnets", level: 3 }
-  ]},
-  { name: "Hardware", items: [
-    { label: "Multi-board RF & mixed-signal PCB", level: 4 }, { label: "Power architecture", level: 3 },
-    { label: "ESP32", level: 5 }, { label: "Raspberry Pi", level: 4 },
-    { label: "Soldering & firmware flashing", level: 5 },
-    { label: "Op-amps · MOSFETs · sensors", level: 4 }
-  ]},
-  { name: "Digital & signals", items: [
-    { label: "FPGA back-end sizing", level: 3 }, { label: "Verilog / HDL", level: 2 },
-    { label: "Digital signal processing", level: 3 }, { label: "Source localization", level: 4 },
-    { label: "I2S / PDM / TDM acquisition", level: 4 }
-  ]},
-  { name: "Languages & tools", items: [
-    { label: "C", level: 4 }, { label: "Python", level: 4 }, { label: "MATLAB", level: 3 },
-    { label: "Linux", level: 3 }, { label: "Audacity", level: 3 }
-  ]}
-];
+  get scrollTop() { return window.scrollY || document.documentElement.scrollTop || 0; }
+  get viewH() { return window.innerHeight; }
+  get maxScroll() { return document.documentElement.scrollHeight - window.innerHeight; }
 
-const TIERS = ["", "Exposure", "Working", "Proficient", "Strong", "Deep"];
-
-class Component extends DCLogic {
-  state = { active: 0, clock: "--:--:--", uptime: 0, sample: 48000, chan: 4, bearing: 128.0, sent: false, section: "about", cx: "50%", cy: "50%", crosshair: false, count: 0, flip: false };
-
-  componentDidMount() {
-    const ids = ["about", "experience", "projects", "skills", "education", "notes", "contact"];
-    this.io = new IntersectionObserver((entries) => {
-      const vis = entries.filter((e) => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-      if (vis) this.setState({ section: vis.target.id });
-    }, { rootMargin: "-45% 0px -45% 0px", threshold: [0, 0.2, 0.6, 1] });
-    ids.forEach((id) => { const el = document.getElementById(id); if (el) this.io.observe(el); });
-
-    const t0 = Date.now();
-    const tick = () => {
-      const p = Math.max(0, Math.min(1, (Date.now() - t0) / 1100));
-      this.setState({ count: 1 - Math.pow(1 - p, 3) });
-      if (p < 1) this.raf = requestAnimationFrame(tick); else this.raf = null;
-    };
-    this.raf = requestAnimationFrame(tick);
-
-    this.t = setInterval(() => {
-      const d = new Date(Date.now() + (330 + new Date().getTimezoneOffset()) * 60000);
-      const p = (n) => String(n).padStart(2, "0");
-      this.setState((s) => ({
-        clock: p(d.getHours()) + ":" + p(d.getMinutes()) + ":" + p(d.getSeconds()),
-        uptime: s.uptime + 1,
-        bearing: (s.bearing + (Math.random() - 0.5) * 2.4 + 360) % 360
-      }));
-    }, 1000);
+  // progress of an element across the viewport: 0 entering, 1 leaving
+  through(el, lead) {
+    var L = lead || 0.85;
+    var r = el.getBoundingClientRect();
+    return clamp01(((this.viewH * L) - r.top) / (r.height + this.viewH * L));
   }
-  componentWillUnmount() { clearInterval(this.t); if (this.io) this.io.disconnect(); if (this.raf) cancelAnimationFrame(this.raf); }
 
-  renderVals() {
-    const act = PROJECTS[this.state.active] || PROJECTS[0];
-    const c = this.state.count;
-    const NAV_ITEMS = [["about", "About"], ["experience", "Experience"], ["projects", "Projects"], ["skills", "Skills"], ["education", "Education"], ["notes", "Notes"], ["contact", "Contact"]];
-    const up = this.state.uptime;
-    const p2 = (n) => String(n).padStart(2, "0");
+  // progress through a tall pinned section
+  sectionP(el) {
+    var travel = el.offsetHeight - this.viewH;
+    return travel > 0 ? clamp01((this.scrollTop - el.offsetTop) / travel) : 0;
+  }
 
-    return {
-      sceneStyle: "position: absolute; inset: 0; z-index: 0; pointer-events: none; background-image: url('assets/scene.png'); background-size: 100% auto; background-position: center top; background-repeat: repeat-y; mix-blend-mode: multiply; filter: saturate(0.42) sepia(0.22) contrast(0.94); opacity: " +
-        (this.props.sceneOpacity == null ? 0.12 : this.props.sceneOpacity) + ";",
-      navLinks: NAV_ITEMS.map(([id, label]) => ({
-        href: "#" + id, label: label,
-        mark: this.state.section === id ? "var(--color-accent)" : "transparent"
-      })),
-      heroStats: [
-        { n: (8.84 * c).toFixed(2), k: "CGPA / 10" },
-        { n: String(Math.round(6 * c)).padStart(2, "0"), k: "Projects shipped" },
-        { n: String(Math.round(2 * c)).padStart(2, "0"), k: "C-UAS prototypes" },
-        { n: "RF", k: "Radar sensing, active" }
-      ],
-      crosshair: this.state.crosshair,
-      cx: this.state.cx,
-      cy: this.state.cy,
-      onHeroMove: (e) => {
-        const r = e.currentTarget.getBoundingClientRect();
-        this.setState({ crosshair: true, cx: ((e.clientX - r.left) / r.width * 100).toFixed(2) + "%", cy: ((e.clientY - r.top) / r.height * 100).toFixed(2) + "%" });
-      },
-      onHeroLeave: () => this.setState({ crosshair: false }),
-      detailAnim: "animation: " + (this.state.active % 2 === 0 ? "settleIn" : "settleAlt") + " 420ms cubic-bezier(0.22, 1, 0.36, 1) both;",
-      telemetry: this.props.telemetry !== false,
-      clock: this.state.clock,
-      tSample: "10.0 kHz",
-      tChan: "0.3 — 1.2 km",
-      tBearing: this.state.bearing.toFixed(1) + "°",
-      tUptime: p2(Math.floor(up / 3600)) + ":" + p2(Math.floor(up / 60) % 60) + ":" + p2(up % 60),
+  arm() {
+    var self = this;
+    var INK = '#191817';
+    var MUTED = '#6B6E6A';
 
-      facts: [
-        { k: "Base", v: "Hubballi, KA" },
-        { k: "Posted", v: "Bengaluru" },
-        { k: "Degree", v: "B.E. ECE, 2026" },
-        { k: "CGPA", v: "8.84 / 10" },
-        { k: "Availability", v: this.props.availability || "Open — 2026" }
-      ],
+    if (document.fonts && document.fonts.ready && document.fonts.ready.then) {
+      document.fonts.ready.then(function () { self._masks = {}; });
+    }
+    if (window.console && window.console.log) {
+      window.console.log('No video on this page. Every frame is drawn from scratch, sixty times a second.');
+      window.console.log('If you are poking around in here, we should probably talk.');
+    }
 
-      roles: [
-        {
-          dates: "Sep 2025 — Present", place: "Bengaluru, IN · On-site",
-          title: "R&D Intern", org: "SSS Defence — DeepTech R&D · Radar, Sensing & C-UAS",
-          bullets: [
-            "Radar sensing for counter-UAS: developing a compact, high-frequency radar sensor that acquires and tracks small aerial targets.",
-            "Own the sensor end to end — requirements and trade studies, detection and link-budget analysis, and antenna design backed by EM simulation.",
-            "Carry the design into hardware: RF and mixed-signal PCB design, digital back-end sizing, power architecture and system safety.",
-            "Systems engineering across disciplines — reconciling neighbouring teams' hand-offs against what the sensor can physically do, and closing the gaps that turn up.",
-            "Recruited into an acoustic counter-UAS programme on the strength of a final-year sound source localization project; joined the hardware team and contributed across core signal-acquisition domains.",
-            "Part of the R&D team on the microphone arrays for the first C-UAS prototype on Raspberry Pi 4, working across multiple communication protocols and building deep familiarity with the platform.",
-            "Adapted a triangulation-based localization approach to support the team's advanced and classical physics-based algorithms, improving the C-UAS localization pipeline.",
-            "Owned the full electronics build for the second prototype: soldering, ESP32 firmware, flashing and data extraction on an independent module.",
-            "Built a complete test rig single-handedly to validate custom mic arrays using ESP32 I2S for PDM capture; solved the classic ESP32's single-RX-channel limit with TDM to read multiple PDM mics.",
-            "Applied networking fundamentals across prototypes: DHCP, static IP assignment and subnet masking.",
-            "Entered the radar side through a low-power X-band programme, building working knowledge of the radar physics, electronics and full system operation."
-          ]
+    // ---------- scramble-decode, driven by the reveal ----------
+    var GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/#%&*';
+    var scrEls = document.querySelectorAll('.scr');
+    var scrText = [];
+    for (var a = 0; a < scrEls.length; a++) {
+      scrText.push(scrEls[a].textContent);
+      scrEls[a].textContent = '';
+    }
+    var decode = function (el) {
+      var text = '';
+      for (var n = 0; n < scrEls.length; n++) { if (scrEls[n] === el) { text = scrText[n]; break; } }
+      if (!text || el.__decoded) return;
+      el.__decoded = true;
+      var frames = 0;
+      var total = 26 + text.length * 1.4;
+      var id = window.setInterval(function () {
+        frames += 1;
+        var shown = Math.floor((frames / total) * text.length * 1.35);
+        var out = '';
+        for (var i = 0; i < text.length; i++) {
+          var ch = text.charAt(i);
+          out += (i < shown || ch === ' ') ? ch
+            : GLYPHS.charAt(Math.floor(Math.random() * GLYPHS.length));
         }
-      ],
-
-      projects: PROJECTS.map((p, i) => {
-        const on = i === this.state.active;
-        return {
-          num: p.num, title: p.title, dates: p.dates, domain: p.domain,
-          onEnter: () => this.setState({ active: i }),
-          rowStyle: "animation: revealUp 620ms cubic-bezier(0.22, 1, 0.36, 1) both; animation-timeline: view(); animation-range: entry 0% cover 14%; padding: var(--space-4) var(--space-3) var(--space-4) " + (on ? "var(--space-3)" : "var(--space-3)") +
-            "; border-bottom: 1px solid var(--color-divider); cursor: pointer; outline: none; transition: background 180ms ease, box-shadow 180ms ease; background: " +
-            (on ? "color-mix(in srgb, var(--color-accent-100) 60%, transparent)" : "transparent") +
-            "; box-shadow: inset 2px 0 0 " + (on ? "var(--color-accent)" : "transparent") + ";",
-          markStyle: "width: 7px; height: 7px; border-radius: 50%; border: 1px solid " +
-            (on ? "var(--color-accent)" : "color-mix(in srgb, var(--color-text) 28%, transparent)") + "; background: " + (on ? "var(--color-accent)" : "transparent") +
-            "; align-self: center; flex: none;"
-        };
-      }),
-
-      activeNum: act.num + " / 06",
-      activeTitle: act.title,
-      activeDates: act.dates + " · " + act.domain,
-      activeBody: act.body,
-      activeStack: act.stack,
-
-      skillGroups: SKILL_GROUPS.map((g) => ({
-        name: g.name,
-        items: g.items.map((s) => ({
-          label: s.label, tier: TIERS[s.level],
-          ticks: [1, 2, 3, 4, 5].map((n) => ({
-            style: "transform-origin: left center; animation: popTick 380ms cubic-bezier(0.22, 1, 0.36, 1) both; animation-timeline: view(); animation-range: entry " + (n * 4) + "% cover " + (14 + n * 3) + "%; width: 12px; height: 5px; border-radius: 1px; border: 1px solid " +
-              (n <= s.level ? "var(--color-accent)" : "color-mix(in srgb, var(--color-text) 20%, transparent)") + "; background: " +
-              (n <= s.level ? "var(--color-accent-400)" : "transparent") + ";"
-          }))
-        }))
-      })),
-
-      education: [
-        { dates: "2022 — 2026", degree: "B.E., Electronics & Communication", school: "KLE Institute of Technology, Hubballi", mark: "8.84" },
-        { dates: "2022", degree: "Senior Secondary (XII), Science", school: "Chetan PU College · Karnataka State Board", mark: "81.0%" },
-        { dates: "2020", degree: "Secondary (X)", school: "Oriental Public School · State Board", mark: "96.2%" }
-      ],
-
-      notes: [
-        { meta: "Note 01 · Embedded", title: "Reading four PDM mics off one ESP32", blurb: "Why the single I2S RX channel is the real constraint, and how TDM gets you past it." },
-        { meta: "Note 02 · Signals", title: "TDOA by hand before you trust the library", blurb: "Working a three-mic bearing estimate on paper, then checking the code against it." },
-        { meta: "Note 03 · Radar", title: "What low-power X-band actually costs you", blurb: "First-principles notes on range, budget and the trades a small radar forces." }
-      ],
-
-      links: [
-        { k: "Email", v: "Amoghukkadgatri@gmail.com", href: "mailto:Amoghukkadgatri@gmail.com" },
-        { k: "Phone", v: "+91 76760 83752", href: "tel:+917676083752" },
-        { k: "LinkedIn", v: "linkedin.com/in/amoghukkadgatri", href: "https://www.linkedin.com/in/amoghukkadgatri" },
-        { k: "GitHub", v: "github.com/amoghukkadgatri", href: "https://github.com/amoghukkadgatri" },
-        { k: "Résumé", v: "Amogh_Ukkadgatri_Resume.pdf", href: "assets/Amogh_Ukkadgatri_Resume.pdf" }
-      ],
-
-      sentMsg: this.state.sent ? "Received — I'll reply within a day." : "",
-      onSubmit: (e) => { e.preventDefault(); this.setState({ sent: true }); }
+        el.textContent = out;
+        if (frames >= total) { window.clearInterval(id); el.textContent = text; }
+      }, 28);
+      self.timers.push(id);
     };
+    this.timers = [];
+
+    // ---------- reveal on enter ----------
+    // A masked line is pushed 110% below its overflow:hidden wrapper, so the
+    // observer sees zero intersection and would never fire. Watch the wrapper.
+    var reveal = function (el) {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+      var tiers = el.querySelectorAll('.tier');
+      for (var i = 0; i < tiers.length; i++) {
+        (function (tEl, dly) {
+          var id = window.setTimeout(function () { tEl.style.transform = 'scaleX(1)'; }, 220 + dly * 90);
+          self.timers.push(id);
+        })(tiers[i], i);
+      }
+      var inner = el.querySelectorAll('.scr');
+      for (var k = 0; k < inner.length; k++) decode(inner[k]);
+    };
+
+    var watch = [];
+    var addWatch = function (target, el) {
+      for (var g = 0; g < watch.length; g++) {
+        if (watch[g].t === target) { watch[g].els.push(el); return; }
+      }
+      watch.push({ t: target, els: [el] });
+    };
+    var rv = document.querySelectorAll('.rv');
+    for (var i2 = 0; i2 < rv.length; i2++) {
+      var par = rv[i2].parentElement;
+      var clipped = par && ['hidden', 'clip'].indexOf(window.getComputedStyle(par).overflow) >= 0;
+      addWatch(clipped ? par : rv[i2], rv[i2]);
+    }
+    // any .scr that is not inside a revealing element decodes on its own
+    for (var a2 = 0; a2 < scrEls.length; a2++) {
+      if (!(scrEls[a2].closest && scrEls[a2].closest('.rv'))) addWatch(scrEls[a2], scrEls[a2]);
+    }
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        for (var g = 0; g < watch.length; g++) {
+          if (watch[g].t !== e.target) continue;
+          for (var k = 0; k < watch[g].els.length; k++) {
+            var el = watch[g].els[k];
+            if (el.className && String(el.className).indexOf('scr') >= 0 && el === e.target) decode(el);
+            else reveal(el);
+          }
+          break;
+        }
+        io.unobserve(e.target);
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -5% 0px' });
+    this.io = io;
+    for (var g2 = 0; g2 < watch.length; g2++) io.observe(watch[g2].t);
+
+    /* ---- marquee copy, taken from the site's own words ---- */
+    var words = ['mmWave', 'RF front ends', 'acoustic', 'microphone arrays', 'trade studies',
+      'array simulation', 'board layout', 'custom firmware', 'counter-UAS',
+      'target detection', 'tracking', 'range gating'];
+    var mqA = document.querySelector('.mqA');
+    var mqB = document.querySelector('.mqB');
+    if (mqA) mqA.textContent = (words.join(' — ') + ' — ').repeat(3);
+    if (mqB) mqB.textContent = (words.slice().reverse().join(' / ') + ' / ').repeat(3);
+
+    /* ---- handles ---- */
+    var q = function (sel) { return document.querySelector(sel); };
+    var qa = function (sel) { return document.querySelectorAll(sel); };
+    var prog = q('.prog'), clock = q('.clock'), heroPar = q('.heroPar'), heroSec = q('#top');
+    var circuitCv = q('.circuit');
+    var cctx = circuitCv && circuitCv.getContext ? circuitCv.getContext('2d') : null;
+    var trace = q('.trace'), traceWrap = q('.traceWrap');
+    var skews = qa('.skew'), lags = qa('.lag'), wds = qa('.wd');
+    var stmtSec = q('.stmtSec');
+    var fieldSec = q('.fieldSec'), fieldCv = q('.field');
+    var fieldRail = q('.fieldRail'), fieldCap = q('.fieldCap');
+    var fctx = fieldCv && fieldCv.getContext ? fieldCv.getContext('2d') : null;
+    var projs = qa('.proj'), idx = q('.idx'), ptitle = q('.ptitle'), pmeta = q('.pmeta'), rail = q('.rail');
+    var tPrf = q('.t-prf'), tGate = q('.t-gate'), tBrg = q('.t-brg'), tUp = q('.t-up');
+
+    if (trace && trace.getTotalLength) {
+      var len = trace.getTotalLength();
+      trace.style.strokeDasharray = len;
+      trace.style.strokeDashoffset = len;
+      this.traceLen = len;
+    }
+
+    this.onScroll = function () {
+      var now = self.scrollTop;
+      self.vel = now - self.last;
+      self.last = now;
+      self.events += 1;
+    };
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+
+    var frame = function () {
+      self.raf = window.requestAnimationFrame(frame);
+      var t = Date.now();
+      var still = self.reduced;
+
+      self.smooth += (self.vel - self.smooth) * 0.12;
+      self.vel *= 0.84;
+      if (still) self.smooth = 0;
+
+      var p = self.maxScroll > 0 ? clamp01(self.scrollTop / self.maxScroll) : 0;
+      if (prog) prog.style.width = (p * 100).toFixed(2) + '%';
+
+      if (!still) {
+        var s = Math.max(-self.lean, Math.min(self.lean, self.smooth * 0.26));
+        for (var i = 0; i < skews.length; i++) skews[i].style.transform = 'skewY(' + s.toFixed(2) + 'deg)';
+        var lagPx = Math.max(-self.rowLag, Math.min(self.rowLag, self.smooth * 0.5));
+        for (var j = 0; j < lags.length; j++) {
+          lags[j].style.transform = 'translate3d(' + (j % 2 ? -lagPx : lagPx).toFixed(1) + 'px,0,0)';
+        }
+      }
+
+      if (heroPar) {
+        heroPar.style.transform = 'translate3d(0,' + (self.scrollTop * 0.22).toFixed(1) + 'px,0)';
+        heroPar.style.opacity = String(Math.max(0, 1 - self.scrollTop / (self.viewH * 0.85)));
+      }
+
+      var deg = (still ? 0 : (t - self.start) * 0.022) + p * 900;
+      var d360 = deg % 360;
+
+      if (heroSec && circuitCv && cctx) {
+        var hr = heroSec.getBoundingClientRect();
+        if (hr.bottom > 0 && hr.top < self.viewH) {
+          self.drawCircuit(cctx, circuitCv, clamp01(self.scrollTop / Math.max(1, self.viewH)),
+                           self.accent, still ? 4000 : t);
+        }
+        circuitCv.style.opacity = String(Math.max(0, 1 - self.scrollTop / (self.viewH * 0.8)));
+      }
+
+      if (trace && traceWrap && self.traceLen) {
+        var qv = self.through(traceWrap, 0.9);
+        trace.style.strokeDashoffset = (self.traceLen * (1 - Math.min(1, qv * 1.6))).toFixed(1);
+      }
+
+      if (stmtSec && wds.length) {
+        var sp = self.through(stmtSec, 0.72);
+        var litCount = Math.floor(clamp01((sp - 0.12) / 0.5) * wds.length + 0.001);
+        for (var w = 0; w < wds.length; w++) {
+          var want = w < litCount ? INK : MUTED;
+          if (wds[w].style.color !== want) wds[w].style.color = want;
+        }
+      }
+
+      if (fieldSec && fieldCv && fctx) {
+        var fp = self.sectionP(fieldSec);
+        var fr = fieldCv.getBoundingClientRect();
+        if (fr.bottom > -200 && fr.top < self.viewH + 200) {
+          self.drawField(fctx, fieldCv, fp, self.accent, still ? 4000 : t, self.smooth);
+        }
+        if (fieldRail) fieldRail.style.width = (fp * 100).toFixed(1) + '%';
+        if (fieldCap) {
+          var ws = self.wordState(fp);
+          var wantI = ws.m > 0.35 ? ws.i : -1;
+          if (wantI !== self.capI) {
+            self.capI = wantI;
+            var capTxt = wantI < 0 ? 'Constructive, mostly.' : self.captions()[wantI];
+            fieldCap.style.opacity = '0';
+            fieldCap.style.transform = 'translateY(6px)';
+            if (self.capSwap) window.clearTimeout(self.capSwap);
+            self.capSwap = window.setTimeout(function () {
+              fieldCap.textContent = capTxt;
+              fieldCap.style.opacity = '1';
+              fieldCap.style.transform = 'none';
+            }, 260);
+          }
+        }
+      }
+
+      if (!still) {
+        var drift = (self.marqueeSpeed / 60) + self.smooth * 0.55;
+        self.offA -= drift;
+        self.offB += drift;
+        if (mqA) {
+          var wA = mqA.scrollWidth / 3;
+          if (wA > 0) { if (self.offA <= -wA) self.offA += wA; if (self.offA > 0) self.offA -= wA; }
+          mqA.style.transform = 'translate3d(' + self.offA.toFixed(1) + 'px,0,0)';
+        }
+        if (mqB) {
+          var wB = mqB.scrollWidth / 3;
+          if (wB > 0) { if (self.offB >= 0) self.offB -= wB; if (self.offB < -wB) self.offB += wB; }
+          mqB.style.transform = 'translate3d(' + self.offB.toFixed(1) + 'px,0,0)';
+        }
+      }
+
+      if (projs.length) {
+        var mid = self.viewH * 0.5;
+        var best = -1, bestDist = Infinity;
+        for (var k = 0; k < projs.length; k++) {
+          var r = projs[k].getBoundingClientRect();
+          var dist = Math.abs((r.top + r.height / 2) - mid);
+          if (dist < bestDist) { bestDist = dist; best = k; }
+          var inView = r.top < mid && r.bottom > mid;
+          projs[k].style.opacity = inView ? '1' : '0.34';
+          var num = projs[k].querySelector('.pnum');
+          var bar = projs[k].querySelector('.pbar');
+          if (num) num.style.color = inView ? self.accent : MUTED;
+          if (bar) {
+            bar.style.width = inView ? '64px' : '28px';
+            bar.style.background = inView ? self.accent : 'rgba(25,24,23,0.25)';
+          }
+        }
+        if (rail) {
+          var f0 = projs[0].getBoundingClientRect();
+          var l0 = projs[projs.length - 1].getBoundingClientRect();
+          var span = (l0.bottom - f0.top) - self.viewH;
+          rail.style.width = (clamp01(span > 0 ? (-f0.top) / span : 0) * 100).toFixed(2) + '%';
+        }
+        if (best >= 0 && best !== self.active) {
+          self.active = best;
+          var pr = CONTENT.projects[best] || CONTENT.projects[0];
+          if (idx) idx.textContent = pr.num;
+          if (ptitle) { ptitle.style.opacity = '0'; ptitle.style.transform = 'translateY(8px)'; }
+          if (pmeta) pmeta.style.opacity = '0';
+          if (self.swap) window.clearTimeout(self.swap);
+          self.swap = window.setTimeout(function () {
+            if (ptitle) { ptitle.textContent = pr.title; ptitle.style.opacity = '1'; ptitle.style.transform = 'none'; }
+            if (pmeta) { pmeta.textContent = pr.domain + '  ·  ' + pr.dates; pmeta.style.opacity = '1'; }
+          }, 190);
+        }
+      }
+
+      if (t - self.prfAt >= 500) {
+        self.prf = Math.round(self.events * (1000 / (t - self.prfAt)));
+        self.events = 0;
+        self.prfAt = t;
+      }
+      if (tPrf) tPrf.textContent = pad(Math.min(999, self.prf), 3);
+      if (tGate) tGate.textContent = pad(Math.round(self.scrollTop), 5);
+      if (tBrg) tBrg.textContent = pad(Math.round(d360), 3);
+      if (tUp) {
+        var secs = Math.floor((t - self.start) / 1000);
+        tUp.textContent = pad(Math.floor(secs / 60), 2) + ':' + pad(secs % 60, 2);
+      }
+      if (clock) {
+        clock.textContent = 'IST ' + new Date().toLocaleTimeString('en-GB',
+          { timeZone: 'Asia/Kolkata', hour12: false });
+      }
+    };
+    frame();
+  }
+
+  destroy() {
+    if (this.io) this.io.disconnect();
+    if (this.raf) window.cancelAnimationFrame(this.raf);
+    if (this.swap) window.clearTimeout(this.swap);
+    if (this.capSwap) window.clearTimeout(this.capSwap);
+    (this.timers || []).forEach(function (id) { window.clearTimeout(id); window.clearInterval(id); });
+    if (this.onScroll) window.removeEventListener('scroll', this.onScroll);
+  }
+
+  // A crude autorouter. Agents walk a grid on 45-degree headings, laying
+  // track and dropping a pad when their budget runs out; finished nets carry
+  // a pulse. Electronics on the left of the job title, communications on the right.
+  newRoute(W, H, pitch, t) {
+    return {
+      x: Math.floor((0.26 + Math.random() * 0.72) * W / pitch),
+      y: Math.floor(Math.random() * (H / pitch)),
+      d: Math.floor(Math.random() * 8),
+      pts: null,
+      budget: 5 + Math.floor(Math.random() * 9),
+      done: false,
+      born: t,
+      pulse: Math.random(),
+      speed: 0.0020 + Math.random() * 0.0034,
+      tag: 'URCJLQD'.charAt(Math.floor(Math.random() * 7)) + (1 + Math.floor(Math.random() * 38))
+    };
+  }
+
+  stepRoute(rt, W, H, pitch) {
+    var DX = [1, 1, 0, -1, -1, -1, 0, 1], DY = [0, 1, 1, 1, 0, -1, -1, -1];
+    if (!rt.pts) rt.pts = [[rt.x * pitch, rt.y * pitch]];
+    var turn = Math.random();
+    if (turn < 0.28) rt.d = (rt.d + 1) & 7;
+    else if (turn < 0.56) rt.d = (rt.d + 7) & 7;
+    var len = 1 + Math.floor(Math.random() * 3);
+    var maxX = Math.floor(W / pitch), maxY = Math.floor(H / pitch);
+    var nx = rt.x + DX[rt.d] * len, ny = rt.y + DY[rt.d] * len;
+    if (nx < 0 || nx > maxX || ny < 0 || ny > maxY) {
+      rt.d = (rt.d + 4) & 7;
+      nx = rt.x + DX[rt.d] * len;
+      ny = rt.y + DY[rt.d] * len;
+      if (nx < 0 || nx > maxX || ny < 0 || ny > maxY) { rt.done = true; return; }
+    }
+    rt.x = nx; rt.y = ny;
+    rt.pts.push([nx * pitch, ny * pitch]);
+    if (--rt.budget <= 0) rt.done = true;
+  }
+
+  drawCircuit(ctx, cv, p, accent, t) {
+    var cw = cv.clientWidth, chh = cv.clientHeight;
+    if (!cw || !chh) return;
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var bw = Math.round(cw * dpr), bh = Math.round(chh * dpr);
+    if (cv.width !== bw || cv.height !== bh) { cv.width = bw; cv.height = bh; this._routes = null; }
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, cw, chh);
+
+    var hx = String(accent).replace('#', '');
+    var AR = parseInt(hx.substring(0, 2), 16); if (isNaN(AR)) AR = 176;
+    var AG = parseInt(hx.substring(2, 4), 16); if (isNaN(AG)) AG = 69;
+    var AB = parseInt(hx.substring(4, 6), 16); if (isNaN(AB)) AB = 36;
+    var acc = function (al) { return 'rgba(' + AR + ',' + AG + ',' + AB + ',' + al + ')'; };
+    var TAU = 6.2831853;
+    var PITCH = cw < 720 ? 20 : 27;
+
+    // fabrication grid
+    ctx.fillStyle = 'rgba(25,24,23,0.05)';
+    var g2 = PITCH * 2;
+    for (var gx = g2; gx < cw; gx += g2) {
+      for (var gy = g2; gy < chh; gy += g2) {
+        ctx.fillRect(gx - 0.8, gy - 0.8, 1.6, 1.6);
+      }
+    }
+
+    if (!this._routes) { this._routes = []; this._grow = 0; }
+    var R = this._routes;
+
+    if (t - this._grow > 55) {
+      this._grow = t;
+      var active = 0;
+      for (var i = 0; i < R.length; i++) {
+        if (!R[i].done) { this.stepRoute(R[i], cw, chh, PITCH); active++; }
+      }
+      while (active < 3 && R.length < 40) { R.push(this.newRoute(cw, chh, PITCH, t)); active++; }
+      while (R.length > 20) R.shift();
+    }
+
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+    for (var i2 = 0; i2 < R.length; i2++) {
+      var rt = R[i2];
+      if (!rt.pts || rt.pts.length < 2) continue;
+      var age = Math.min(1, (t - rt.born) / 1100);
+
+      ctx.beginPath();
+      ctx.moveTo(rt.pts[0][0], rt.pts[0][1]);
+      for (var j = 1; j < rt.pts.length; j++) ctx.lineTo(rt.pts[j][0], rt.pts[j][1]);
+      ctx.strokeStyle = 'rgba(25,24,23,' + (0.15 * age).toFixed(3) + ')';
+      ctx.lineWidth = 1.6;
+      ctx.stroke();
+
+      var s0 = rt.pts[0], s1 = rt.pts[rt.pts.length - 1];
+      ctx.beginPath(); ctx.arc(s0[0], s0[1], 3.2, 0, TAU);
+      ctx.strokeStyle = 'rgba(25,24,23,' + (0.24 * age).toFixed(3) + ')';
+      ctx.lineWidth = 1.4; ctx.stroke();
+      if (rt.done) {
+        ctx.beginPath(); ctx.arc(s1[0], s1[1], 3.2, 0, TAU);
+        if (i2 % 3 === 0) { ctx.fillStyle = acc(0.55 * age); ctx.fill(); }
+        else { ctx.strokeStyle = 'rgba(25,24,23,' + (0.24 * age).toFixed(3) + ')'; ctx.stroke(); }
+      }
+
+      if (!rt.done) continue;
+
+      var segs = [], total = 0;
+      for (var k = 1; k < rt.pts.length; k++) {
+        var ddx = rt.pts[k][0] - rt.pts[k - 1][0], ddy = rt.pts[k][1] - rt.pts[k - 1][1];
+        var L = Math.sqrt(ddx * ddx + ddy * ddy);
+        segs.push(L); total += L;
+      }
+      if (total <= 0) continue;
+      rt.pulse += rt.speed * (1 + p * 3);
+      if (rt.pulse > 1.3) rt.pulse -= 1.45;
+      if (rt.pulse < 0 || rt.pulse > 1) continue;
+
+      for (var tail = 0; tail < 3; tail++) {
+        var at = rt.pulse - tail * 0.045;
+        if (at < 0) break;
+        var want = at * total, acc2 = 0, qx = 0, qy = 0, hit = false;
+        for (var m = 0; m < segs.length; m++) {
+          if (acc2 + segs[m] >= want) {
+            var u = segs[m] > 0 ? (want - acc2) / segs[m] : 0;
+            qx = rt.pts[m][0] + (rt.pts[m + 1][0] - rt.pts[m][0]) * u;
+            qy = rt.pts[m][1] + (rt.pts[m + 1][1] - rt.pts[m][1]) * u;
+            hit = true; break;
+          }
+          acc2 += segs[m];
+        }
+        if (!hit) continue;
+        ctx.beginPath();
+        ctx.arc(qx, qy, 2.9 - tail * 0.6, 0, TAU);
+        ctx.fillStyle = acc((0.9 - tail * 0.28) * age);
+        ctx.fill();
+      }
+    }
+
+    // ---------- silkscreen legend, printed over the copper ----------
+    var pad = cw < 720 ? 20 : 80;
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'alphabetic';
+
+    var widthOf = function (str, tr) {
+      var w = 0;
+      for (var a = 0; a < str.length; a++) w += ctx.measureText(str.charAt(a)).width + tr;
+      return w - tr;
+    };
+    var tracked = function (str, rightX, y, tr, col) {
+      ctx.fillStyle = col;
+      var x = rightX - widthOf(str, tr);
+      for (var a = 0; a < str.length; a++) {
+        ctx.fillText(str.charAt(a), x, y);
+        x += ctx.measureText(str.charAt(a)).width + tr;
+      }
+    };
+
+    ctx.font = '500 10px "IBM Plex Mono", ui-monospace, monospace';
+    for (var n3 = 0; n3 < R.length; n3++) {
+      var rr3 = R[n3];
+      if (!rr3.done || !rr3.pts || rr3.pts.length < 2 || !rr3.tag) continue;
+      var ag3 = Math.min(1, (t - rr3.born) / 1100);
+      var ep = rr3.pts[rr3.pts.length - 1];
+      ctx.fillStyle = 'rgba(25,24,23,' + (0.28 * ag3).toFixed(3) + ')';
+      ctx.fillText(rr3.tag, ep[0] + 8, ep[1] - 7);
+    }
+
+    if (cw > 680) {
+      var LINES = ['ELECTRONICS', '&', 'COMMUNICATION', 'ENGINEER'];
+      var FAM = '700 SIZEpx "IBM Plex Sans", system-ui, sans-serif';
+      var probe = 100, probeTr = probe * 0.055;
+      ctx.font = FAM.replace('SIZE', probe);
+      var wRef = widthOf('COMMUNICATION', probeTr) || 1;
+      var size = Math.round(probe * Math.min(cw * 0.44, 560) / wRef);
+      var fit = Math.round(chh * 0.60 / (LINES.length * 1.08));
+      if (size > fit) size = fit;
+      if (size < 16) size = 16;
+      var tr2 = size * 0.055;
+      var lh = size * 1.08;
+      ctx.font = FAM.replace('SIZE', size);
+
+      var rightX = cw - pad;
+      var baseY = chh - pad - 40;
+      for (var li = 0; li < LINES.length; li++) {
+        var yy3 = baseY - (LINES.length - 1 - li) * lh;
+        tracked(LINES[li], rightX, yy3, tr2,
+                LINES[li] === '&' ? acc(0.40) : 'rgba(25,24,23,0.115)');
+      }
+
+      ctx.font = '500 11px "IBM Plex Mono", ui-monospace, monospace';
+      tracked('ROUTED LIVE  \u00B7  NO TWO LOADS ALIKE', rightX, chh - pad + 2, 1.7,
+              'rgba(25,24,23,0.26)');
+    }
+
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+  }
+
+  words() { return ['SIGNAL', 'NOISE', 'DECISION']; }
+  captions() { return ['Something is out there.', 'Most of it is not.', 'Tell them which.']; }
+
+  // Which word is forming right now, and how far along, from section progress.
+  wordState(p) {
+    var SLOTS = [[0.06, 0.34], [0.37, 0.65], [0.68, 0.97]];
+    var best = 0, bi = -1;
+    for (var w = 0; w < SLOTS.length; w++) {
+      var a = SLOTS[w][0], b = SLOTS[w][1], v = 0;
+      if (p >= a && p <= b) {
+        var u = (p - a) / (b - a);
+        v = u < 0.34 ? u / 0.34 : (u > 0.66 ? (1 - u) / 0.34 : 1);
+        if (v < 0) v = 0; else if (v > 1) v = 1;
+        v = v * v * (3 - 2 * v);
+      }
+      if (v > best) { best = v; bi = w; }
+    }
+    return { i: bi, m: best };
+  }
+
+  // Render a word into an offscreen buffer the same size as the dot grid,
+  // so each dot can ask "am I inside a letter?" and how much.
+  maskFor(word, cols, rows) {
+    if (!this._masks) this._masks = {};
+    var key = word + '|' + cols + 'x' + rows;
+    if (this._masks[key]) return this._masks[key];
+    var oc = document.createElement('canvas');
+    oc.width = cols; oc.height = rows;
+    var o = oc.getContext('2d');
+    if (!o) return null;
+    o.fillStyle = '#000';
+    o.fillRect(0, 0, cols, rows);
+    o.fillStyle = '#fff';
+    o.textAlign = 'center';
+    o.textBaseline = 'middle';
+    var fam = '700 SIZEpx "IBM Plex Sans", system-ui, sans-serif';
+    var probe = Math.max(8, Math.round(rows * 0.4));
+    o.font = fam.replace('SIZE', probe);
+    var wide = o.measureText(word).width || 1;
+    var size = Math.round(probe * (cols * 0.86) / wide);
+    var cap = Math.round(rows * 0.5);
+    if (size > cap) size = cap;
+    if (size < 7) size = 7;
+    o.font = fam.replace('SIZE', size);
+    o.fillText(word, cols / 2, rows / 2);
+    var px = o.getImageData(0, 0, cols, rows).data;
+    var m = new Float32Array(cols * rows);
+    for (var i = 0; i < cols * rows; i++) m[i] = px[i * 4] / 255;
+    this._masks[key] = m;
+    return m;
+  }
+
+  // Three circular waves summed on a grid of dots, evaluated every frame.
+  // As the section scrolls, the dots gather into a word and then let go of it.
+  drawField(ctx, cv, p, accent, t, vel) {
+    var cw = cv.clientWidth, chh = cv.clientHeight;
+    if (!cw || !chh) return;
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var bw = Math.round(cw * dpr), bh = Math.round(chh * dpr);
+    if (cv.width !== bw || cv.height !== bh) { cv.width = bw; cv.height = bh; }
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    ctx.fillStyle = '#EDEAE2';
+    ctx.fillRect(0, 0, cw, chh);
+
+    var hx = String(accent).replace('#', '');
+    var AR = parseInt(hx.substring(0, 2), 16); if (isNaN(AR)) AR = 176;
+    var AG = parseInt(hx.substring(2, 4), 16); if (isNaN(AG)) AG = 69;
+    var AB = parseInt(hx.substring(4, 6), 16); if (isNaN(AB)) AB = 36;
+
+    var W = cw, H = chh;
+    var GAP = W < 720 ? 14 : 20;
+    var cols = Math.ceil(W / GAP) + 1;
+    var rows = Math.ceil(H / GAP) + 1;
+
+    var ease = Math.max(0, Math.min(1, p / 0.05));
+    var drift = t * 0.0009 + (vel || 0) * 0.02;
+
+    var ws = this.wordState(p);
+    var morph = ws.m;
+    var mask = (ws.i >= 0 && morph > 0.002) ? this.maskFor(this.words()[ws.i], cols, rows) : null;
+    if (!mask) morph = 0;
+
+    var sx1 = (0.16 + 0.56 * p) * W, sy1 = (0.26 + 0.34 * Math.sin(p * Math.PI * 1.6)) * H;
+    var sx2 = (0.88 - 0.52 * p) * W, sy2 = (0.78 - 0.44 * p) * H;
+    var sx3 = (0.50 + 0.28 * Math.sin(p * Math.PI * 2.1)) * W, sy3 = (0.48 + 0.34 * Math.cos(p * Math.PI * 1.7)) * H;
+
+    var lam = W * 0.085 * (1.3 - 0.62 * p);
+    var k = (2 * Math.PI) / lam;
+    var decay = W * 0.52;
+    var TAU = 6.2831853;
+    var textRad = GAP * 0.40;
+    var calm = 1 - 0.72 * morph;        // the waves settle while a word holds
+    var glyph = [];
+    var crests = [];
+
+    ctx.beginPath();
+    for (var r = 0; r < rows; r++) {
+      var y = r * GAP;
+      var rowOff = r * cols;
+      for (var c = 0; c < cols; c++) {
+        var x = c * GAP;
+        var dx = x - sx1, dy = y - sy1;
+        var d = Math.sqrt(dx * dx + dy * dy);
+        var f = Math.sin(k * d - drift) / (1 + d / decay);
+        dx = x - sx2; dy = y - sy2;
+        d = Math.sqrt(dx * dx + dy * dy);
+        f += 0.94 * Math.sin(k * d - drift * 1.25) / (1 + d / decay);
+        dx = x - sx3; dy = y - sy3;
+        d = Math.sqrt(dx * dx + dy * dy);
+        f += 0.82 * Math.sin(k * d + drift * 0.8) / (1 + d / decay);
+        f *= 0.62;
+        if (f > 1) f = 1; else if (f < -1) f = -1;
+
+        var mv = f < 0 ? -f : f;
+        var wave = (0.5 + 6.2 * Math.pow(mv, 1.2)) * ease * calm;
+
+        var g = mask ? mask[rowOff + c] * morph : 0;
+        var rad = g > 0 ? wave + (textRad - wave) * g : wave;
+        if (rad < 0.35) continue;
+        var yy = y + f * 7 * (1 - g);
+
+        if (g > 0.45) { glyph.push(x, yy, rad); continue; }
+        if (f > 0.58 && g < 0.2) { crests.push(x, yy, rad); continue; }
+        ctx.moveTo(x + rad, yy);
+        ctx.arc(x, yy, rad, 0, TAU);
+      }
+    }
+    ctx.fillStyle = 'rgba(25,24,23,' + (0.52 - 0.22 * morph).toFixed(3) + ')';
+    ctx.fill();
+
+    if (crests.length) {
+      ctx.beginPath();
+      for (var q = 0; q < crests.length; q += 3) {
+        ctx.moveTo(crests[q] + crests[q + 2], crests[q + 1]);
+        ctx.arc(crests[q], crests[q + 1], crests[q + 2], 0, TAU);
+      }
+      ctx.fillStyle = 'rgba(' + AR + ',' + AG + ',' + AB + ',0.9)';
+      ctx.fill();
+    }
+
+    if (glyph.length) {
+      ctx.beginPath();
+      for (var j = 0; j < glyph.length; j += 3) {
+        ctx.moveTo(glyph[j] + glyph[j + 2], glyph[j + 1]);
+        ctx.arc(glyph[j], glyph[j + 1], glyph[j + 2], 0, TAU);
+      }
+      ctx.fillStyle = 'rgba(25,24,23,' + (0.30 + 0.68 * morph).toFixed(3) + ')';
+      ctx.fill();
+    }
+
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
   }
 }
 
-</script>
-<script>
-  document.addEventListener('click', function (e) {
-    var open = document.querySelector('details.menu[open]');
-    if (!open) return;
-    if (e.target.closest('.menu-panel a') || !e.target.closest('details.menu')) {
-      open.removeAttribute('open');
-    }
-  });
+/* =========================================================================
+   4. BOOT
+   ========================================================================= */
+document.getElementById('app').innerHTML = template(CONTENT);
+window.__motion = new Motion();
+
+// The site is static, so "Transmit" hands the message to the visitor's mail client.
+var form = document.querySelector('.contact-form');
+if (form) form.addEventListener('submit', function (e) {
+  e.preventDefault();
+  var d = new FormData(form);
+  var body = d.get('message') + '\n\n— ' + d.get('name') + ' (' + d.get('email') + ')';
+  window.location.href = 'mailto:Amoghukkadgatri@gmail.com?subject='
+    + encodeURIComponent('Portfolio enquiry from ' + d.get('name'))
+    + '&body=' + encodeURIComponent(body);
+  form.querySelector('.form-note').textContent = 'Opening your mail client — or write to Amoghukkadgatri@gmail.com.';
+});
+
+// Close the mobile menu after a pick or on an outside tap.
+document.addEventListener('click', function (e) {
+  var open = document.querySelector('details.menu[open]');
+  if (open && (e.target.closest('.menu-panel a') || !e.target.closest('details.menu'))) {
+    open.removeAttribute('open');
+  }
+});
 </script>
 </body>
 </html>
