@@ -1138,7 +1138,7 @@ class Motion {
     var probe = Math.max(8, Math.round(rows * 0.4));
     o.font = fam.replace('SIZE', probe);
     var wide = o.measureText(word).width || 1;
-    var size = Math.round(probe * (cols * 0.86) / wide);
+    var size = Math.round(probe * (cols * (cols < 80 ? 0.94 : 0.86)) / wide);
     var cap = Math.round(rows * 0.5);
     if (size > cap) size = cap;
     if (size < 7) size = 7;
@@ -1170,7 +1170,10 @@ class Motion {
     var AB = parseInt(hx.substring(4, 6), 16); if (isNaN(AB)) AB = 36;
 
     var W = cw, H = chh;
-    var GAP = W < 720 ? 14 : 20;
+    // Phones get a finer grid so a word still has enough dots across to read;
+    // dot size and wobble scale with the grid pitch.
+    var GAP = W < 720 ? 7 : 20;
+    var DOT = W < 720 ? 0.5 : 1;
     var cols = Math.ceil(W / GAP) + 1;
     var rows = Math.ceil(H / GAP) + 1;
 
@@ -1190,7 +1193,7 @@ class Motion {
     var k = (2 * Math.PI) / lam;
     var decay = W * 0.52;
     var TAU = 6.2831853;
-    var textRad = GAP * 0.40;
+    var textRad = GAP * (W < 720 ? 0.46 : 0.40);
     var calm = 1 - 0.72 * morph;        // the waves settle while a word holds
     var glyph = [];
     var crests = [];
@@ -1214,12 +1217,12 @@ class Motion {
         if (f > 1) f = 1; else if (f < -1) f = -1;
 
         var mv = f < 0 ? -f : f;
-        var wave = (0.5 + 6.2 * Math.pow(mv, 1.2)) * ease * calm;
+        var wave = (0.5 + 6.2 * Math.pow(mv, 1.2)) * DOT * ease * calm;
 
         var g = mask ? mask[rowOff + c] * morph : 0;
         var rad = g > 0 ? wave + (textRad - wave) * g : wave;
-        if (rad < 0.35) continue;
-        var yy = y + f * 7 * (1 - g);
+        if (rad < 0.35 * DOT) continue;
+        var yy = y + f * 7 * DOT * (1 - g);
 
         if (g > 0.45) { glyph.push(x, yy, rad); continue; }
         if (f > 0.58 && g < 0.2) { crests.push(x, yy, rad); continue; }
