@@ -910,7 +910,7 @@ class Motion {
   // a pulse. Electronics on the left of the job title, communications on the right.
   newRoute(W, H, pitch, t) {
     return {
-      x: Math.floor((0.26 + Math.random() * 0.72) * W / pitch),
+      x: Math.floor((W < 720 ? 0.02 + Math.random() * 0.96 : 0.26 + Math.random() * 0.72) * W / pitch),
       y: Math.floor(Math.random() * (H / pitch)),
       d: Math.floor(Math.random() * 8),
       pts: null,
@@ -948,7 +948,12 @@ class Motion {
     if (!cw || !chh) return;
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
     var bw = Math.round(cw * dpr), bh = Math.round(chh * dpr);
-    if (cv.width !== bw || cv.height !== bh) { cv.width = bw; cv.height = bh; this._routes = null; }
+    if (cv.width !== bw || cv.height !== bh) {
+      // Only a width change invalidates the board; phones change height whenever
+      // the address bar slides, and that shouldn't wipe every trace.
+      if (cv.width !== bw) this._routes = null;
+      cv.width = bw; cv.height = bh;
+    }
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, cw, chh);
 
@@ -969,7 +974,19 @@ class Motion {
       }
     }
 
-    if (!this._routes) { this._routes = []; this._grow = 0; }
+    var narrow = cw < 720;
+    if (!this._routes) {
+      this._routes = []; this._grow = 0;
+      // Phones hide the silkscreen legend and the copy covers most of the hero,
+      // so start them on a board that is already routed instead of an empty one.
+      if (narrow) {
+        for (var sd = 0; sd < 14; sd++) {
+          var seed = this.newRoute(cw, chh, PITCH, t - 1100);
+          while (!seed.done) this.stepRoute(seed, cw, chh, PITCH);
+          this._routes.push(seed);
+        }
+      }
+    }
     var R = this._routes;
 
     if (t - this._grow > 55) {
@@ -978,7 +995,7 @@ class Motion {
       for (var i = 0; i < R.length; i++) {
         if (!R[i].done) { this.stepRoute(R[i], cw, chh, PITCH); active++; }
       }
-      while (active < 3 && R.length < 40) { R.push(this.newRoute(cw, chh, PITCH, t)); active++; }
+      while (active < (narrow ? 4 : 3) && R.length < 40) { R.push(this.newRoute(cw, chh, PITCH, t)); active++; }
       while (R.length > 20) R.shift();
     }
 
