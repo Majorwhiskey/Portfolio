@@ -101,9 +101,9 @@ var CONTENT = {
       dates: 'Sep 2025 — Present', org: 'SSS Defence',
       title: 'R&D Intern — DeepTech R&D', place: 'Bengaluru, India · On-site',
       bullets: [
-        'Recruited into the acoustic counter-UAS program on the strength of a final-year sound source localization project — brought in to take that array and DOA work into a fielded prototype, and given ownership of the acoustic sensing hardware from array build through measurement.',
+        'Recruited into the acoustic counter-UAS program on the strength of a final-year sound source localization project — brought in to take that array and DOA work into a fielded prototype, and owning the acoustic sensing hardware from array build through measurement.',
         'Built the microphone arrays for the first acoustic C-UAS prototype on Raspberry Pi 4 — array geometry, sensor selection and capture across multiple communication protocols — and adapted a triangulation-based localization approach into the pipeline so the team’s classical and physics-based algorithms could run on live multi-channel data.',
-        'Built and validated the test rigs that qualify those mic arrays in hardware (<a href="#projects">see Projects</a>): repeatable capture, channel-alignment and bearing-accuracy checks against known source positions, with DHCP, static IP and subnet masking applied across prototypes for reliable Ethernet data transfer.',
+        'Built and validated the test rigs that qualify those mic arrays in hardware (<a href="#projects">see Projects</a>): repeatable capture, channel-alignment and bearing-accuracy checks against known source positions, with DHCP, static IP and subnet masking across prototypes for reliable Ethernet transfer.',
         '24 GHz RF & substrate characterization — built and validated a dedicated PCB test coupon featuring a 24 GHz patch antenna to empirically extract and measure the complex dielectric properties (ε<sub>r</sub> and loss tangent) of high-frequency substrate materials (Rogers RO4003C) under real-world fabrication conditions.'
       ]
     }
@@ -477,12 +477,12 @@ function template(C) {
     </div>
     <div class="skew" style="margin-top: 24px; font-family: 'Instrument Serif', Georgia, serif; font-size: clamp(34px, 5.2vw, 78px); line-height: 1.05; letter-spacing: -0.02em; will-change: transform;">
       <span style="display: block; overflow: hidden; padding-bottom: 4px;"><span class="rv" style="display: block; opacity: 0; transform: translateY(110%); transition: transform 1.1s cubic-bezier(.16,1,.3,1), opacity 1.1s;">Open to hardware roles in</span></span>
-      <span style="display: block; overflow: hidden; padding-bottom: 4px;"><span class="rv" style="display: block; opacity: 0; transform: translateY(110%); transition: transform 1.1s cubic-bezier(.16,1,.3,1), opacity 1.1s; transition-delay: .08s;"><em style="font-style: italic; color: var(--accent);">defence &amp; aerospace.</em></span></span>
+      <span style="display: block; overflow: hidden; padding-bottom: 4px;"><span class="rv" style="display: block; opacity: 0; transform: translateY(110%); transition: transform 1.1s cubic-bezier(.16,1,.3,1), opacity 1.1s; transition-delay: .08s;"><em style="font-style: italic; color: var(--accent);">electronics &amp; embedded systems.</em></span></span>
     </div>
 
     <div class="cols-2" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(28px, 5vw, 72px); margin-top: clamp(40px, 6vh, 70px); align-items: start;">
       <div>
-        <p class="rv" style="opacity: 0; transform: translateY(20px); transition: transform .95s cubic-bezier(.16,1,.3,1), opacity .95s; margin: 0; font-size: clamp(15px, 1.15vw, 17px); line-height: 1.7; color: #6B6E6A;">If you are building regulated, high-reliability hardware for defence or aerospace — RF, radar or acoustic — and want someone who will run the link budget, simulate the array, lay out the boards and then measure what came back, write to me.</p>
+        <p class="rv" style="opacity: 0; transform: translateY(20px); transition: transform .95s cubic-bezier(.16,1,.3,1), opacity .95s; margin: 0; font-size: clamp(15px, 1.15vw, 17px); line-height: 1.7; color: #6B6E6A;">If you are building electronics or embedded hardware — sensing, RF, acoustic or anything with a board and firmware — and want someone who will simulate it, lay out the boards, write the firmware and then measure what came back, write to me.</p>
         <div class="rv" style="opacity: 0; transform: translateY(20px); transition: transform .95s cubic-bezier(.16,1,.3,1), opacity .95s; transition-delay: .2s; margin-top: 34px;">
           ${(links || []).map(function (l) { return `
             <a href="${l.href}"${l.href.indexOf('http') === 0 ? ' target="_blank" rel="noopener"' : ''} style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 15px 0; border-top: 1px solid rgba(25,24,23,0.16); text-decoration: none;">
