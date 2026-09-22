@@ -10,7 +10,7 @@ a pinned project index, word-by-word statement reveal, marquees, and live masthe
 
 ## Sections
 
-`#top` · `#about` · `#log` (experience) · `#projects` · `#skills` · `#education` · `#notes` · `#contact`
+`#top` · `#about` · `#log` (experience) · `#projects` · `#skills` · `#education` · `#contact`
 
 ## Layout
 
@@ -24,7 +24,7 @@ vercel.json         Vercel config — publishes docs/ with no build step
 
 ## Editing content
 
-All copy (roles, projects, skills, education, notes, contact links) lives in the `CONTENT` object near the top
+All copy (roles, projects, skills, education, contact links) lives in the `CONTENT` object near the top
 of the `<script>` in `docs/index.html`. The markup is generated from it, so edits there are all you need.
 
 ## Running locally
