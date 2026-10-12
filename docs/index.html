@@ -98,13 +98,20 @@ var LEVEL = function (n) { return (n * 20) + '%'; };
 var CONTENT = {
   roles: [
     {
-      dates: 'Sep 2025 — Present', org: 'SSS Defence',
+      dates: 'Sep 2026 — Present', org: 'SSS Defence',
+      title: 'Hardware Engineer — DeepTech R&D', place: 'Bengaluru, India · On-site',
+      bullets: [
+        'Part of the team building packet transport, data alignment and time synchronization across multiple microphone arrays, so captures from separate arrays line up for joint processing.',
+        'Continuing to own the acoustic counter-UAS sensing hardware — microphone arrays, capture firmware and the test rigs that qualify them.'
+      ]
+    },
+    {
+      dates: 'Sep 2025 — Sep 2026', org: 'SSS Defence',
       title: 'R&D Intern — DeepTech R&D', place: 'Bengaluru, India · On-site',
       bullets: [
         'Recruited into the acoustic counter-UAS program on the strength of a final-year sound source localization project — brought in to take that array and DOA work into a fielded prototype, and owning the acoustic sensing hardware from array build through measurement.',
         'Built the microphone arrays for the first acoustic C-UAS prototype on Raspberry Pi 4 — array geometry, sensor selection and capture across multiple communication protocols — and adapted a triangulation-based localization approach into the pipeline so the team’s classical and physics-based algorithms could run on live multi-channel data.',
-        'Built and validated the test rigs that qualify those mic arrays in hardware (<a href="#projects">see Projects</a>): repeatable capture, channel-alignment and bearing-accuracy checks against known source positions, with DHCP, static IP and subnet masking across prototypes for reliable Ethernet transfer.',
-        '24 GHz RF & substrate characterization — built and validated a dedicated PCB test coupon featuring a 24 GHz patch antenna to empirically extract and measure the complex dielectric properties (ε<sub>r</sub> and loss tangent) of high-frequency substrate materials (Rogers RO4003C) under real-world fabrication conditions.'
+        'Built and validated the test rigs that qualify those mic arrays in hardware (<a href="#projects">see Projects</a>): repeatable capture, channel-alignment and bearing-accuracy checks against known source positions, with DHCP, static IP and subnet masking across prototypes for reliable Ethernet transfer.'
       ]
     }
   ],
@@ -147,11 +154,11 @@ var CONTENT = {
   groups: [
     { name: 'Systems & RF', items: [
       ['Link-budget & detection analysis', 4], ['Antenna & array design', 4],
-      ['Full-wave EM simulation', 4], ['24 GHz patch antenna & test coupons', 4],
-      ['Substrate characterization · εr, tan δ', 3], ['Multi-board layout', 4],
+      ['Full-wave EM simulation', 4], ['Multi-board layout', 4],
       ['Digital back-end architecture', 3] ] },
     { name: 'Embedded & signals', items: [
       ['ESP32', 5], ['Raspberry Pi', 4], ['Arduino', 4], ['I2S / PDM / TDM audio', 4],
+      ['KiCad · 4-layer PCB design', 3], ['LoRa & GNSS', 3],
       ['Signal processing · DOA', 3], ['Soldering & firmware flashing', 5] ] },
     { name: 'Languages & tools', items: [
       ['C', 4], ['Python', 4], ['MATLAB', 3], ['Verilog (basics)', 2], ['Linux', 3], ['Audacity', 3] ] },
@@ -271,9 +278,9 @@ function template(C) {
     <div class="rv" style="opacity: 0; transform: scaleX(0); transform-origin: left; transition: transform 1.2s cubic-bezier(.16,1,.3,1), opacity .4s; height: 1px; background: rgba(25,24,23,0.28);"></div>
     <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 20px; padding-top: 26px;">
       <div style="overflow: hidden;">
-        <div class="rv" style="opacity: 0; transform: translateY(110%); transition: transform 1s cubic-bezier(.16,1,.3,1), opacity 1s; font-family: 'Instrument Serif', Georgia, serif; font-size: clamp(26px, 2.6vw, 38px); line-height: 1.2;">R&amp;D Intern, SSS Defence</div>
+        <div class="rv" style="opacity: 0; transform: translateY(110%); transition: transform 1s cubic-bezier(.16,1,.3,1), opacity 1s; font-family: 'Instrument Serif', Georgia, serif; font-size: clamp(26px, 2.6vw, 38px); line-height: 1.2;">Hardware Engineer, SSS Defence</div>
       </div>
-      <div class="rv" style="opacity: 0; transform: translateY(14px); transition: transform .9s cubic-bezier(.16,1,.3,1), opacity .9s; transition-delay: .1s; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #6B6E6A;">Sep 2025 — Present &nbsp;·&nbsp; Acoustic C-UAS &amp; 24 GHz RF</div>
+      <div class="rv" style="opacity: 0; transform: translateY(14px); transition: transform .9s cubic-bezier(.16,1,.3,1), opacity .9s; transition-delay: .1s; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #6B6E6A;">Sep 2026 — Present &nbsp;·&nbsp; Acoustic C-UAS &amp; embedded hardware</div>
     </div>
     <svg class="traceWrap" viewBox="0 0 1200 90" width="100%" height="90" preserveAspectRatio="none" style="margin-top: 30px; display: block;" role="img" aria-label="Signal trace that draws as the page scrolls">
       <line x1="0" y1="45" x2="1200" y2="45" stroke="rgba(25,24,23,0.12)"></line>
@@ -292,8 +299,8 @@ function template(C) {
         <span style="display: block; overflow: hidden; padding-bottom: 4px;"><span class="rv" style="display: block; opacity: 0; transform: translateY(110%); transition: transform 1.05s cubic-bezier(.16,1,.3,1), opacity 1.05s; transition-delay: .08s;"><em style="font-style: italic;">end to end.</em></span></span>
       </div>
       <div class="cols-2" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(24px, 3vw, 44px); margin-top: clamp(36px, 5vh, 60px); max-width: 860px;">
-        <p class="rv" style="opacity: 0; transform: translateY(20px); transition: transform .95s cubic-bezier(.16,1,.3,1), opacity .95s; margin: 0; font-size: clamp(14px, 1.05vw, 16px); line-height: 1.7; color: #6B6E6A;">Right now that means acoustic counter-UAS: I own the sensing hardware from array build through measurement. I built the microphone arrays for the first prototype on Raspberry Pi 4 — array geometry, sensor selection and multi-protocol capture — and adapted a triangulation-based localization approach so the team’s classical and physics-based algorithms run on live multi-channel data. When the off-the-shelf path ran out I built my own: the classic ESP32 gives you one I2S RX channel, so I moved capture to TDM and built the rig that validates the custom arrays.</p>
-        <p class="rv" style="opacity: 0; transform: translateY(20px); transition: transform .95s cubic-bezier(.16,1,.3,1), opacity .95s; transition-delay: .09s; margin: 0; font-size: clamp(14px, 1.05vw, 16px); line-height: 1.7; color: #6B6E6A;">Alongside it, 24 GHz RF and substrate characterization — a dedicated PCB test coupon with a 24 GHz patch antenna, built and validated to measure the complex dielectric properties (ε<sub>r</sub> and loss tangent) of Rogers RO4003C under real-world fabrication conditions. I came to the role through a final-year 3D sound source localization project, and it still shapes how I work: measure first, then trust the maths.</p>
+        <p class="rv" style="opacity: 0; transform: translateY(20px); transition: transform .95s cubic-bezier(.16,1,.3,1), opacity .95s; margin: 0; font-size: clamp(14px, 1.05vw, 16px); line-height: 1.7; color: #6B6E6A;">Right now that means acoustic counter-UAS: I own the sensing hardware from array build through measurement. I built the microphone arrays for the first prototype on Raspberry Pi 4 — array geometry, sensor selection and multi-protocol capture — and adapted a triangulation-based localization approach so the team’s classical and physics-based algorithms run on live multi-channel data. When the off-the-shelf path ran out I built my own: the classic ESP32 gives you one I2S RX channel, so I moved capture to TDM and built the rig that validates the custom arrays. Now I’m part of the team synchronizing packets, data and time across multiple arrays.</p>
+        <p class="rv" style="opacity: 0; transform: translateY(20px); transition: transform .95s cubic-bezier(.16,1,.3,1), opacity .95s; transition-delay: .09s; margin: 0; font-size: clamp(14px, 1.05vw, 16px); line-height: 1.7; color: #6B6E6A;">Alongside it, I design boards end to end — most recently Theoros, a 4-layer ESP32-S3 GPS logger with encrypted LoRa telemetry, taken from schematic and routing through to firmware (<a href="#projects">see Projects</a>). I came to the role through a final-year 3D sound source localization project, and it still shapes how I work: measure first, then trust the maths.</p>
       </div>
       <div class="rv facts" style="opacity: 0; transform: translateY(20px); transition: transform .95s cubic-bezier(.16,1,.3,1), opacity .95s; transition-delay: .16s; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; margin-top: clamp(36px, 5vh, 56px); max-width: 860px; border-top: 1px solid rgba(25,24,23,0.16); padding-top: 22px;">
         <span><span style="display: block; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: #6B6E6A;">Base</span><span style="display: block; margin-top: 8px; font-family: 'Instrument Serif', Georgia, serif; font-size: 24px;">Hubballi, KA</span></span>
@@ -656,9 +663,9 @@ class Motion {
     for (var g2 = 0; g2 < watch.length; g2++) io.observe(watch[g2].t);
 
     /* ---- marquee copy, taken from the site's own words ---- */
-    var words = ['24 GHz', 'link budgets', 'acoustic', 'microphone arrays', 'patch antennas',
+    var words = ['PCB design', 'link budgets', 'acoustic', 'microphone arrays', 'LoRa telemetry',
       'EM simulation', 'multi-board layout', 'custom firmware', 'counter-UAS',
-      'DOA estimation', 'tracking', 'substrate characterization'];
+      'DOA estimation', 'tracking', 'test rigs'];
     var mqA = document.querySelector('.mqA');
     var mqB = document.querySelector('.mqB');
     if (mqA) mqA.textContent = (words.join(' — ') + ' — ').repeat(3);

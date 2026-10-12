@@ -32,7 +32,9 @@
   .role { font-size: 9.8pt; font-weight: 700; line-height: 13pt; }
   .date { color: #5a5a5a; font-size: 8.2pt; white-space: nowrap; }
   .sub { font-size: 8.2pt; color: #5a5a5a; margin-top: 3pt; }
-  ul { margin: 5.5pt 0 0 0; padding: 0 0 0 11pt; }
+  .pos { margin-top: 5pt; }
+  .pos .t { font-weight: 700; font-style: italic; }
+  ul { margin: 2pt 0 0 0; padding: 0 0 0 11pt; }
   li { margin: 0 0 1.5pt 0; }
   li::marker { font-size: 7pt; }
 
@@ -63,18 +65,23 @@
 
   <section>
     <h2 class="serif">SUMMARY</h2>
-    <p>Electronics and communication engineer in defence R&amp;D, on the guidance package for a small air-defence interceptor end to end: radar link-budget and detection analysis, antenna and array design with full-wave EM simulation, digital back-end architecture, and multi-board flight electronics through to fabrication-ready hardware and its measurement plan, including 24 GHz RF and substrate characterization. Background in acoustic counter-UAS — mic arrays, embedded firmware and the test rigs that prove them. Suited to regulated, high-reliability defence and aerospace work.</p>
+    <p>Hardware engineer in defence R&amp;D at SSS Defence, working on acoustic counter-UAS: microphone arrays, embedded capture firmware, the test rigs that qualify them, and packet, data and time synchronization across multiple arrays. Designs boards end to end, from 4-layer KiCad layout to encrypted LoRa firmware. Suited to regulated, high-reliability defence and aerospace work.</p>
   </section>
 
   <section>
     <h2 class="serif">EXPERIENCE</h2>
-    <div class="row"><span class="role">R&amp;D Intern — SSS Defence</span><span class="date">Sep 2025 – Present</span></div>
-    <div class="sub">Bengaluru, India (on-site) · DeepTech R&amp;D — Air-defence interceptor guidance package, acoustic C-UAS</div>
+    <div class="row"><span class="role">SSS Defence</span><span class="date">Sep 2025 – Present</span></div>
+    <div class="sub">Bengaluru, India (on-site) · DeepTech R&amp;D — Acoustic counter-UAS</div>
+    <div class="row pos"><span class="t">Hardware Engineer</span><span class="date">Sep 2026 – Present</span></div>
     <ul>
-      <li>Recruited into the acoustic counter-UAS program on the strength of a final-year sound source localization project — brought in to take that array and DOA work into a fielded prototype, owning the acoustic sensing hardware from array build through measurement.</li>
+      <li>Part of the team building packet transport, data alignment and time synchronization across multiple microphone arrays, so captures from separate arrays line up for joint processing.</li>
+      <li>Continuing to own the acoustic C-UAS sensing hardware, from microphone arrays and capture firmware to the rigs that qualify them.</li>
+    </ul>
+    <div class="row pos"><span class="t">R&amp;D Intern</span><span class="date">Sep 2025 – Sep 2026</span></div>
+    <ul>
+      <li>Recruited into the acoustic C-UAS program on the strength of a final-year sound source localization project, to field that array and DOA work.</li>
       <li>Built the microphone arrays for the first acoustic C-UAS prototype on Raspberry Pi 4 — array geometry, sensor selection and capture across multiple communication protocols — and adapted a triangulation-based localization approach into the pipeline so the team's classical and physics-based algorithms could run on live multi-channel data.</li>
       <li>Built and validated the test rigs that qualify those mic arrays in hardware (see Projects): repeatable capture, channel-alignment and bearing-accuracy checks against known source positions, with DHCP, static IP and subnet masking across prototypes for reliable Ethernet transfer.</li>
-      <li>24 GHz RF &amp; substrate characterization — built and validated a dedicated PCB test coupon featuring a 24 GHz patch antenna to empirically extract and measure the complex dielectric properties (ε<sub>r</sub> and loss tangent) of high-frequency substrate materials (Rogers RO4003C) under real-world fabrication conditions.</li>
     </ul>
   </section>
 
@@ -96,7 +103,6 @@
       <div class="row"><span class="t">Mic-Array Validation Test Rig — ESP32 I2S PDM / TDM</span><span class="date">2025 – 26</span></div>
       <p>Built a complete test rig single-handedly to validate custom mic arrays over ESP32 I2S PDM capture, solving the classic ESP32's single-RX-channel limit by moving to TDM.</p>
     </div>
-    <p class="muted">Also: smart alcohol detection &amp; engine immobilization — breath-alcohol sensor wired into a vehicle ignition lock (2023) &nbsp;· analog battery-level indicator, voltage-divider based (2024) · centroid finder in Python (2023).</p>
   </section>
 
   <section>
@@ -104,7 +110,7 @@
     <div class="skills">
       <b>Languages &amp; tools</b><span>C, Python, MATLAB, Verilog (basics), KiCad, Audacity, Linux</span>
       <b>Hardware &amp; embedded</b><span>ESP32 / ESP32-S3, Raspberry Pi, Arduino, 8051, I2S / PDM / TDM audio, LoRa, GNSS, 4-layer PCB design, sensors, op-amps, MOSFETs, transistors, soldering and firmware flashing</span>
-      <b>Systems &amp; RF</b><span>Link-budget &amp; detection analysis, antenna/array design, 24 GHz patch antenna &amp; test-coupon design, substrate characterization (ε<sub>r</sub>, loss tangent), full-wave EM simulation, digital back-end architecture, multi-board layout, signal processing</span>
+      <b>Systems &amp; RF</b><span>Link-budget &amp; detection analysis, antenna/array design, full-wave EM simulation, digital back-end architecture, multi-board layout, signal processing</span>
       <b>Networking</b><span>DHCP, static IP, subnet masking, Ethernet data transfer</span>
     </div>
   </section>
