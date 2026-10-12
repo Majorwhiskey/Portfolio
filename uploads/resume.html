@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Amogh Ukkadgatri — Resume</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #fff; }
+  body {
+    font-family: 'Source Sans 3', sans-serif; color: #1a1a1a;
+    font-size: 8.8pt; line-height: 12pt;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .page { width: 210mm; height: 297mm; padding: 26pt 36pt 0 36pt; overflow: hidden; }
+  a { color: #1a1a1a; text-decoration: underline; text-decoration-thickness: 0.75pt; text-underline-offset: 1.6pt; }
+  .muted { color: #5a5a5a; }
+  .serif { font-family: 'Source Serif 4', serif; font-weight: 600; }
+
+  header { display: flex; justify-content: space-between; align-items: flex-start; }
+  h1 { font-weight: 700 !important; letter-spacing: 0.02em; margin: -4pt 0 0 0; font-size: 21pt; line-height: 26pt; }
+  .contact { text-align: right; font-size: 8pt; line-height: 11.3pt; color: #5a5a5a; padding-top: 8pt; }
+  .tagline { font-size: 9.4pt; line-height: 12pt; color: #444; font-weight: 600; margin-top: 5pt; }
+  .rule { height: 1.5pt; background: #1a1a1a; margin: 6pt 0 0 0; }
+
+  h2 { margin: 6.5pt 0 3pt 0; font-size: 10.5pt; line-height: 14pt; letter-spacing: 0.03em; }
+  section + section h2 { margin-top: 5pt; }
+  p { margin: 0; }
+
+  .row { display: flex; justify-content: space-between; align-items: baseline; }
+  .role { font-size: 9.8pt; font-weight: 700; line-height: 13pt; }
+  .date { color: #5a5a5a; font-size: 8.2pt; white-space: nowrap; }
+  .sub { font-size: 8.2pt; color: #5a5a5a; margin-top: 3pt; }
+  ul { margin: 5.5pt 0 0 0; padding: 0 0 0 11pt; }
+  li { margin: 0 0 1.5pt 0; }
+  li::marker { font-size: 7pt; }
+
+  .proj { margin-bottom: 2.2pt; }
+  .proj .t { font-weight: 700; }
+  .proj .date { font-size: 8.8pt; }
+
+  .skills { display: grid; grid-template-columns: 103.2pt 1fr; row-gap: 3pt; font-size: 9pt; }
+  .skills b { font-weight: 700; }
+  .edu { font-size: 9pt; line-height: 12pt; }
+  .edu .row { margin-bottom: 2.2pt; }
+  .edu .date { font-size: 9pt; }
+  .lead { font-size: 9pt; line-height: 12.7pt; color: #5a5a5a; }
+  sub { font-size: 0.83em; line-height: 0; vertical-align: -0.25em; }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <h1 class="serif">Amogh Ukkadgatri</h1>
+    <div class="contact">
+      Hubballi / Bengaluru, India · +91 76760 83752<br>
+      Amoghukkadgatri@gmail.com · <a href="https://amoghukkadgatri.vercel.app/">amoghukkadgatri.vercel.app</a> · <a href="https://www.linkedin.com/in/amoghukkadgatri">LinkedIn</a> · <a href="https://github.com/amoghukkadgatri">GitHub</a>
+    </div>
+  </header>
+  <div class="tagline">Electronics &amp; Communication Engineer · Embedded Systems · RF &amp; Signal Processing</div>
+  <div class="rule"></div>
+
+  <section>
+    <h2 class="serif">SUMMARY</h2>
+    <p>Electronics and communication engineer in defence R&amp;D, on the guidance package for a small air-defence interceptor end to end: radar link-budget and detection analysis, antenna and array design with full-wave EM simulation, digital back-end architecture, and multi-board flight electronics through to fabrication-ready hardware and its measurement plan, including 24 GHz RF and substrate characterization. Background in acoustic counter-UAS — mic arrays, embedded firmware and the test rigs that prove them. Suited to regulated, high-reliability defence and aerospace work.</p>
+  </section>
+
+  <section>
+    <h2 class="serif">EXPERIENCE</h2>
+    <div class="row"><span class="role">R&amp;D Intern — SSS Defence</span><span class="date">Sep 2025 – Present</span></div>
+    <div class="sub">Bengaluru, India (on-site) · DeepTech R&amp;D — Air-defence interceptor guidance package, acoustic C-UAS</div>
+    <ul>
+      <li>Recruited into the acoustic counter-UAS program on the strength of a final-year sound source localization project — brought in to take that array and DOA work into a fielded prototype, owning the acoustic sensing hardware from array build through measurement.</li>
+      <li>Built the microphone arrays for the first acoustic C-UAS prototype on Raspberry Pi 4 — array geometry, sensor selection and capture across multiple communication protocols — and adapted a triangulation-based localization approach into the pipeline so the team's classical and physics-based algorithms could run on live multi-channel data.</li>
+      <li>Built and validated the test rigs that qualify those mic arrays in hardware (see Projects): repeatable capture, channel-alignment and bearing-accuracy checks against known source positions, with DHCP, static IP and subnet masking across prototypes for reliable Ethernet transfer.</li>
+      <li>24 GHz RF &amp; substrate characterization — built and validated a dedicated PCB test coupon featuring a 24 GHz patch antenna to empirically extract and measure the complex dielectric properties (ε<sub>r</sub> and loss tangent) of high-frequency substrate materials (Rogers RO4003C) under real-world fabrication conditions.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 class="serif">SELECTED PROJECTS</h2>
+    <div class="proj">
+      <div class="row"><span class="t">3D Sound Source Localization using a Mic Array</span><span class="date">Sep 2025 – Mar 2026</span></div>
+      <p>Real-time audio sensing system that detects sound sources and resolves their direction in three dimensions using classical DOA methods over a custom-built microphone array — array geometry and calibration, multi-channel synchronous capture and a processing chain that holds bearing accuracy on live signals in noisy rooms. The work this internship was offered on.</p>
+    </div>
+    <div class="proj">
+      <div class="row"><span class="t">Real-time 3D Radar Tracking &amp; Classification System</span><span class="date">Sep – Nov 2024</span></div>
+      <p>Radar system that tracks moving objects in three dimensions and classifies them by their distinct return signatures — range–Doppler processing, track association across frames and a feature-based classifier separating object types in real time.</p>
+    </div>
+    <div class="proj">
+      <div class="row"><span class="t">Theoros — Encrypted GPS Logger with LoRa Telemetry</span><span class="date">Oct 2026</span></div>
+      <p>Designed a USB-powered ESP32-S3 GPS tracker end to end: a 4-layer KiCad board built for machine assembly, with a u-blox SAM-M10Q GNSS module, RFM95W 866 MHz LoRa radio, microSD and OLED, and impedance-checked RF and USB traces. Wrote the tracker and receiver firmware: LoRa telemetry and SD logs encrypted and authenticated with AES-128-CCM, plus WiFi NTP time and OTA. Ready for fabrication.</p>
+    </div>
+    <div class="proj">
+      <div class="row"><span class="t">Mic-Array Validation Test Rig — ESP32 I2S PDM / TDM</span><span class="date">2025 – 26</span></div>
+      <p>Built a complete test rig single-handedly to validate custom mic arrays over ESP32 I2S PDM capture, solving the classic ESP32's single-RX-channel limit by moving to TDM.</p>
+    </div>
+    <p class="muted">Also: smart alcohol detection &amp; engine immobilization — breath-alcohol sensor wired into a vehicle ignition lock (2023) &nbsp;· analog battery-level indicator, voltage-divider based (2024) · centroid finder in Python (2023). Full write-ups at <a href="https://amoghukkadgatri.vercel.app/">amoghukkadgatri.vercel.app</a>.</p>
+  </section>
+
+  <section>
+    <h2 class="serif">SKILLS</h2>
+    <div class="skills">
+      <b>Languages &amp; tools</b><span>C, Python, MATLAB, Verilog (basics), KiCad, Audacity, Linux</span>
+      <b>Hardware &amp; embedded</b><span>ESP32 / ESP32-S3, Raspberry Pi, Arduino, 8051, I2S / PDM / TDM audio, LoRa, GNSS, 4-layer PCB design, sensors, op-amps, MOSFETs, transistors, soldering and firmware flashing</span>
+      <b>Systems &amp; RF</b><span>Link-budget &amp; detection analysis, antenna/array design, 24 GHz patch antenna &amp; test-coupon design, substrate characterization (ε<sub>r</sub>, loss tangent), full-wave EM simulation, digital back-end architecture, multi-board layout, signal processing</span>
+      <b>Networking</b><span>DHCP, static IP, subnet masking, Ethernet data transfer</span>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="serif">EDUCATION</h2>
+    <div class="edu">
+      <div class="row"><span><b>B.E., Electronics &amp; Communication</b> — KLE Institute of Technology ·&nbsp; <b>CGPA 8.84/10</b></span><span class="date">2022 – 2026</span></div>
+      <div class="row"><span><b>Senior Secondary (XII), Science</b> — Chetan PU College, Karnataka State Board · <b>81.00%</b></span><span class="date">2022</span></div>
+      <div class="row"><span><b>Secondary (X)</b> — Oriental Public School, State Board · <b>96.16%</b></span><span class="date">2020</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="serif">LEADERSHIP &amp; ACTIVITIES</h2>
+    <p class="lead">Chair, KLEIT–IEEE MTT-S Chapter (2024–25) · Vice-Chair, KLEIT–IEEE Student Branch (2023–24) · Coordinator, Technical &amp; Cultural Fest · Class Representative (2023–24) · University Cultural Group (Theatre)</p>
+  </section>
+</div>
+</body>
+</html>

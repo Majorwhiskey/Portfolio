@@ -128,28 +128,28 @@ var CONTENT = {
       tags: ['Radar', 'Range–Doppler', 'Tracking', 'Classification', 'Python']
     },
     {
-      num: '03', title: 'Mic-Array Validation Test Rig — ESP32 I2S PDM / TDM',
+      num: '03', title: 'Theoros — Encrypted GPS Logger with LoRa Telemetry',
+      dates: 'Oct 2026', domain: 'PCB design / embedded',
+      desc: 'A USB-powered GPS tracker designed end to end on the ESP32-S3: a 4-layer KiCad board built for single-sided machine assembly, with a u-blox SAM-M10Q GNSS module, an RFM95W radio on 866 MHz, microSD logging and an OLED. RF and USB traces were checked for impedance against the fab’s stackup. Separate tracker and receiver firmware send fixes over LoRa and log them to SD, both encrypted and authenticated with AES-128-CCM and per-tracker keys, plus NTP time, log download and OTA over WiFi. Design and firmware are complete; the board has not been fabricated yet.',
+      tags: ['ESP32-S3', 'KiCad', '4-layer PCB', 'LoRa', 'GNSS', 'AES-CCM', 'C++']
+    },
+    {
+      num: '04', title: 'Mic-Array Validation Test Rig — ESP32 I2S PDM / TDM',
       dates: '2025 — 2026', domain: 'Embedded / validation',
       desc: 'A complete test rig, built single-handedly, to validate custom mic arrays over ESP32 I2S PDM capture. The classic ESP32 exposes a single I2S receive channel, which caps you at one PDM microphone; moving capture to TDM let the rig read several mics at once and made array validation possible without external hardware.',
       tags: ['ESP32', 'I2S / PDM', 'TDM', 'C', 'Firmware']
     },
     {
-      num: '04', title: 'Smart Alcohol Detection & Engine Immobilization',
+      num: '05', title: 'Smart Alcohol Detection & Engine Immobilization',
       dates: '2023', domain: 'Embedded / safety',
       desc: 'A breath-alcohol sensor wired into a vehicle ignition lock: on detection above threshold, the system immobilizes the engine. Required a fail-safe interlock design — the failure mode had to be “engine off”, never “engine on”.',
       tags: ['Alcohol sensor', 'Relay interlock', 'Microcontroller', 'C']
     },
     {
-      num: '05', title: 'Battery Level Indicator & Centroid Finder',
+      num: '06', title: 'Battery Level Indicator & Centroid Finder',
       dates: '2023 — 2024', domain: 'Analog / tooling',
       desc: 'Two smaller builds: an analog battery-level indicator built around a voltage divider (2024), and a Python utility that computes centroid location from coordinate inputs (2023).',
       tags: ['Analog', 'Voltage divider', 'Transistors', 'Python']
-    },
-    {
-      num: '06', title: 'Membrane-over-MEMS-Port Acoustic Simulation',
-      dates: '2026', domain: 'Simulation',
-      desc: 'A lumped-element acoustic simulator for a spring-mounted membrane over a MEMS microphone port, modelling the piston motion, the enclosure and the thermoviscous losses in the mic hole to predict the pressure the mic actually sees.',
-      tags: ['Acoustics', 'Lumped-element model', 'Python', 'SciPy']
     }
   ].map(function (p) {
     p.tags = p.tags.map(function (t) { return { label: t }; });
